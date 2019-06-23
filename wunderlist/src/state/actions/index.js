@@ -3,7 +3,7 @@ import axiosWithAuth from './../../authentication/axiosWithAuth';
 
 export const FETCH_TODOS_START = 'FETCH_TODOS_START';
 export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
-export const FETCH_TODOSFAILURE = 'FETCH_TODOS_FAILURE';
+export const FETCH_TODOS_FAILURE = 'FETCH_TODOS_FAILURE';
 export const ADD_NEW_TODO = 'ADD_NEW_TODO';
 export const ADD_NEW_TODO_SUCCESS = 'ADD_NEW_TODO_SUCCESS';
 export const UPDATE_TODO = 'UPDATE_TODO';
