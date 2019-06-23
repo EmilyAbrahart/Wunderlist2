@@ -1,58 +1,126 @@
-import axios from 'axios';
-import axiosWithAuth from './../../authentication/axiosWithAuth';
+import axios from "axios";
+import axiosWithAuth from "./../../authentication/axiosWithAuth";
 
-export const FETCH_TODOS_START = 'FETCH_TODOS_START';
-export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
-export const FETCH_TODOS_FAILURE = 'FETCH_TODOS_FAILURE';
-export const ADD_NEW_TODO = 'ADD_NEW_TODO';
-export const ADD_NEW_TODO_SUCCESS = 'ADD_NEW_TODO_SUCCESS';
-export const UPDATE_TODO = 'UPDATE_TODO';
-export const DELETE_TODO = 'DELETE_TODO';
-export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
-export const LOGIN = 'LOGIN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+// Registration
+export const REGISTRATION_START = "REGISTRATION_START";
+export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
+export const REGISTRATION_FAILURE = "REGISTRATION_FAILURE";
 
-export const fetchTodos = () => dispatch => {
-	dispatch({ type: FETCH_TODOS_START });
-	axiosWithAuth()
-		.get('https://backend-wunderlist.herokuapp.com/api/todos')
-		.then(res => {
-			dispatch({ type: FETCH_TODOS_SUCCESS, payload: res.data });
-		})
-		.catch(err =>
-			dispatch({
-				type: FETCH_TODOS_FAILURE,
-				payload: err.response
-			})
-		);
+export const registerUser = (username, password) => dispatch => {
+  const credentials = { username, password };
+  dispatch({ type: REGISTRATION_START });
+  axios
+    .post(
+      "https://backend-wunderlist.herokuapp.com/api/auth/register",
+      credentials
+    )
+    .then(res => dispatch({ type: REGISTRATION_SUCCESS, payload: res.data }))
+    .catch(() =>
+      dispatch({
+        type: REGISTRATION_FAILURE,
+        payload: "A user with that name already exists. Please try again."
+      })
+    );
 };
+
+// Authentication
+export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
 export const login = (username, password) => dispatch => {
-	const credentials = { username, password };
-
-	axios
-		.post('https://backend-wunderlist.herokuapp.com/api/auth/login', credentials)
-		.then(res => {
-			localStorage.setItem('token', res.data.payload);
-		})
-		.catch(err => console.log(`Could not login - ${err.error}`));
+  const credentials = { username, password };
+  dispatch({ type: LOGIN_START });
+  axios
+    .post(
+      "https://backend-wunderlist.herokuapp.com/api/auth/login",
+      credentials
+    )
+    .then(res => {
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
+      localStorage.setItem("token", res.data.token);
+    })
+    .catch(() =>
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload:
+          "Incorrect username or password. Please check your credentials and try again."
+      })
+    );
 };
+
+// Fetching tasks
+export const FETCH_TODOS_START = "FETCH_TODOS_START";
+export const FETCH_TODOS_SUCCESS = "FETCH_TODOS_SUCCESS";
+export const FETCH_TODOS_FAILURE = "FETCH_TODOS_FAILURE";
+
+export const fetchTodos = () => dispatch => {
+  dispatch({ type: FETCH_TODOS_START });
+  axiosWithAuth()
+    .get("https://backend-wunderlist.herokuapp.com/api/todos")
+    .then(res => {
+      dispatch({ type: FETCH_TODOS_SUCCESS, payload: res.data });
+    })
+    .catch(() =>
+      dispatch({
+        type: FETCH_TODOS_FAILURE,
+        payload: "Unable to fetch tasks at this time. Please try again later."
+      })
+    );
+};
+
+// Add new tasks
+export const ADD_NEW_TODO = "ADD_NEW_TODO";
+export const ADD_NEW_TODO_SUCCESS = "ADD_NEW_TODO_SUCCESS";
+export const ADD_NEW_TODO_FAILURE = "ADD_NEW_TODO_FAILURE";
 
 export const addTodo = todo => dispatch => {
-	dispatch({ type: ADD_NEW_TODO });
-	axiosWithAuth()
-		.post('https://backend-wunderlist.herokuapp.com/api/todos', todo)
-		.then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data }))
-		.catch(err => console.log(`Could not add task: ${err.message}`));
+  dispatch({ type: ADD_NEW_TODO });
+  axiosWithAuth()
+    .post("https://backend-wunderlist.herokuapp.com/api/todos", todo)
+    .then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data }))
+    .catch(() =>
+      dispatch({
+        type: ADD_NEW_TODO_FAILURE,
+        payload:
+          "Unable to add task. Please ensure all required fields are completed and try again."
+      })
+    );
 };
 
+// Delete tasks
+export const DELETE_TODO = "DELETE_TODO";
+export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
+export const DELETE_TODO_FAILURE = "DELETE_TODO_FAILURE";
+
 export const deleteTodo = id => dispatch => {
-	dispatch({ type: DELETE_TODO });
-	axiosWithAuth()
-		.delete(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
-		.then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data }))
-		.catch(err => {
-			console.log(`Could not delete task: ${err.message}`);
-		});
+  dispatch({ type: DELETE_TODO });
+  axiosWithAuth()
+    .delete(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
+    .then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data }))
+    .catch(() =>
+      dispatch({
+        type: DELETE_TODO_FAILURE,
+        payload:
+          "Unable to delete task. The task may have already been deleted."
+      })
+    );
+};
+
+// Update tasks
+export const UPDATE_TODO_START = "UPDATE_TODO_START";
+export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
+export const UPDATE_TODO_FAILURE = "UPDATE_TODO_FAILURE";
+
+export const updateTodo = (id, todo) => dispatch => {
+  dispatch({ type: UPDATE_TODO_START });
+  axiosWithAuth()
+    .put(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`, todo)
+    .then(res => dispatch({ type: UPDATE_TODO_SUCCESS, payload: res.data }))
+    .catch(() =>
+      dispatch({
+        type: UPDATE_TODO_FAILURE,
+        payload: "Unable to update task. Please try again."
+      })
+    );
 };
