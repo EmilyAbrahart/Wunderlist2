@@ -8,18 +8,41 @@ import {
   DELETE_TODO_FAILURE,
   UPDATE_TODO_SUCCESS,
   UPDATE_TODO_FAILURE,
-  UPDATE_TODO_START
+  UPDATE_TODO_START,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
 } from "./../actions/";
 
 const initialState = {
   todos: [],
   isFetching: false,
   isUpdating: false,
+  isAuthenticating: false,
   error: ""
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_START:
+      return {
+        ...state,
+        isAuthenticating: true
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isAuthenticating: false
+      };
+
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        isAuthenticating: false,
+        error: action.payload
+      };
+
     case FETCH_TODOS_START:
       return {
         ...state,
@@ -98,7 +121,7 @@ export const rootReducer = (state = initialState, action) => {
         isUpdating: false,
         isFetching: false
       };
-      
+
     default:
       return state;
   }

@@ -39,7 +39,11 @@ const FormikRegistrationForm = withFormik({
       password: ""
     };
   },
-  validationSchema: registrationFormValidationSchema
+  validationSchema: registrationFormValidationSchema,
+  handleSubmit(values, { props, resetForm }) {
+    props.registerUser(values);
+    resetForm();
+  }
 })(RegistrationForm);
 
 export default FormikRegistrationForm;

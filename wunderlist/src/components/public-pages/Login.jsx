@@ -38,7 +38,10 @@ const FormikLoginForm = withFormik({
       password: ""
     };
   },
-  validationSchema: loginFormValidationSchema
+  validationSchema: loginFormValidationSchema,
+  handleSubmit(values, {props}){
+    props.loginUser(values);
+  }
 })(LoginForm);
 
 export default FormikLoginForm;
