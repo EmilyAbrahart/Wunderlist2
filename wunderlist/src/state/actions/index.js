@@ -6,8 +6,7 @@ export const REGISTRATION_START = "REGISTRATION_START";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
 export const REGISTRATION_FAILURE = "REGISTRATION_FAILURE";
 
-export const registerUser = (username, password) => dispatch => {
-  const credentials = { username, password };
+export const registerUser = credentials => dispatch => {
   dispatch({ type: REGISTRATION_START });
   axios
     .post(
@@ -28,8 +27,7 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
-export const login = (username, password) => dispatch => {
-  const credentials = { username, password };
+export const loginUser = credentials => dispatch => {
   dispatch({ type: LOGIN_START });
   axios
     .post(
