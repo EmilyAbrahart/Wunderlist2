@@ -64,7 +64,7 @@ const FormikAddTodoForm = withFormik({
   handleSubmit(values, { props, resetForm }) {
     const todoObj = {
         item: values.item,
-        //description: JSON.stringify([values.description, values.catergory]),
+        description: JSON.stringify([values.description, values.catergory]),
         priority: values.priority
     };
     props.addTodo(todoObj);
