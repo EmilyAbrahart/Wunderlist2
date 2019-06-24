@@ -76,7 +76,7 @@ export const addTodo = todo => dispatch => {
   dispatch({ type: ADD_NEW_TODO });
   axiosWithAuth()
     .post("https://backend-wunderlist.herokuapp.com/api/todos", todo)
-    .then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data }))
+    .then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data}))
     .catch(() =>
       dispatch({
         type: ADD_NEW_TODO_FAILURE,
@@ -95,7 +95,7 @@ export const deleteTodo = id => dispatch => {
   dispatch({ type: DELETE_TODO });
   axiosWithAuth()
     .delete(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
-    .then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data }))
+    .then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data}))
     .catch(() =>
       dispatch({
         type: DELETE_TODO_FAILURE,

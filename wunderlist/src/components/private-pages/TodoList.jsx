@@ -4,24 +4,31 @@ import { fetchTodos, deleteTodo, updateTodo } from "./../../state/actions";
 import Todo from "./Todo";
 
 class TodoList extends React.Component {
-    componentDidMount(){
-        this.props.fetchTodos();
-    }
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
 
   render() {
-    return (<div>
-        {this.props.todos.map(todo => <Todo key={todo.id} {...todo} />)}
-    </div>);
+    if (this.props.isFetching) {
+      return <div>Loading</div>;
+    } else if (!this.props.todos || this.props.todos.length === 0) {
+      return <div>You have no active tasks</div>;
+    }
+    return (
+      <div>
+        {this.props.todos.map(todo => (
+          <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
+        ))}
+      </div>
+    );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    todos: state.todos,
-    error: state.error
-  };
-};
-
+ const mapStateToProps = state => {
+     return {
+         todos: state.todos
+     }
+ };
+ 
 export default connect(
   mapStateToProps,
   { fetchTodos, deleteTodo, updateTodo }

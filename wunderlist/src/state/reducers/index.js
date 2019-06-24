@@ -19,7 +19,9 @@ const initialState = {
   isFetching: false,
   isUpdating: false,
   isAuthenticating: false,
-  error: ""
+  error: "",
+  catergories: ["General", "Shopping", "Work"],
+  priorities: [1, 2, 3]
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -71,9 +73,7 @@ export const rootReducer = (state = initialState, action) => {
     case DELETE_TODO_SUCCESS:
       return {
         ...state,
-        todos: action.payload,
-        isUpdating: false,
-        isFetching: false
+        todos: state.todos.filter(todo => todo.id !== action.payload[0]),
       };
 
     case DELETE_TODO_FAILURE:
@@ -87,7 +87,7 @@ export const rootReducer = (state = initialState, action) => {
     case ADD_NEW_TODO_SUCCESS:
       return {
         ...state,
-        todos: action.payload,
+        todos: [...state.todos, action.payload],
         isUpdating: false,
         isFetching: false
       };
