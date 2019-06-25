@@ -13,9 +13,8 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  FILTER_TODAY,
-  FILTER_MONTH,
-  FILTER_WEEK,
+  FILTER_CATERGORY,
+  FILTER_DUE_DATE,
   FILTER_ALL
 } from "./../actions/";
 import moment from "moment";
@@ -144,33 +143,24 @@ export const rootReducer = (state = initialState, action) => {
         isFiltering: ""
       };
 
-    case FILTER_TODAY:
+    case FILTER_DUE_DATE:
       return {
         ...state,
-        isFiltering: "today",
+        isFiltering: action.payload[0],
         filteredTodos: state.todos.filter(todo =>
-          moment(todo.due_date).isSame(action.payload, "day")
+          moment(todo.due_date).isSame(action.payload[1], action.payload[0])
         )
       };
 
-    case FILTER_WEEK:
+    case FILTER_CATERGORY:
+      const TodoCatergory = item => JSON.parse(item.description)[1];
       return {
         ...state,
-        isFiltering: "week",
-        filteredTodos: state.todos.filter(todo =>
-          moment(todo.due_date).isSame(action.payload, "week")
+        isFiltering: action.payload.toLowerCase(),
+        filteredTodos: state.todos.filter(
+          todo => TodoCatergory(todo) === action.payload
         )
       };
-
-    case FILTER_MONTH:
-      return {
-        ...state,
-        isFiltering: "month",
-        filteredTodos: state.todos.filter(todo =>
-          moment(todo.due_date).isSame(action.payload, "month")
-        )
-      };
-
     default:
       return state;
   }

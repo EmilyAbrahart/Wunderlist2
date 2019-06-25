@@ -5,10 +5,9 @@ import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
 import {
   addTodo,
-  filterMonth,
-  filterToday,
-  filterWeek,
-  filterAll
+  filterAll,
+  filterCatergory,
+  filterDueDate
 } from "./../../state/actions";
 import styled from "styled-components";
 import { FlexFunc } from "./../../styles/reusables";
@@ -40,6 +39,8 @@ const TodoPage = props => {
         filterWeek={props.filterWeek}
         filterMonth={props.filterMonth}
         filterAll={props.filterAll}
+        filterCatergory={props.filterCatergory}
+        filterDueDate={props.filterDueDate}
       />
       <TodoSectionContainer>
         <TodoList
@@ -68,5 +69,10 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addTodo, filterToday, filterWeek, filterMonth, filterAll }
+  {
+    addTodo,
+    filterAll,
+    filterCatergory,
+    filterDueDate
+  }
 )(TodoPage);

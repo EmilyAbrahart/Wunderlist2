@@ -43,6 +43,7 @@ const ButtonContainer = styled.div`
 
 const TodoButton = styled.button`
 ${Button('white', 'black')};
+border: none;
 `;
 
 const ItemDiv = styled.div`

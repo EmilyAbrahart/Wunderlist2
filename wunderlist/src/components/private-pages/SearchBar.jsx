@@ -5,7 +5,8 @@ import {
   Input,
   Button,
   color_subtle,
-  color_light
+  color_light,
+  color_negative
 } from "./../../styles/reusables";
 
 const SearchBarDiv = styled.div`
@@ -30,29 +31,23 @@ const SearchBarButton = styled.button`
 
 const FilterAllButton = styled(SearchBarButton)`
   color: ${props => (props.isFiltering ? color_subtle : color_light)};
-  background: ${props => (props.isFiltering ? color_light : color_subtle)};
+  background: ${props => (props.isFiltering ? color_light : color_negative)};
+  border-color: ${props => (props.isFiltering ? color_subtle : color_negative)};
 `;
 
-const FilterTodayButton = styled(SearchBarButton)`
+const FilterButton = styled(SearchBarButton)`
   color: ${props =>
-    props.isFiltering === "today" ? color_light : color_subtle};
+    props.isFiltering === props.id.toLowerCase() ? color_light : color_subtle};
   background: ${props =>
-    props.isFiltering === "today" ? color_subtle : color_light};
+    props.isFiltering === props.id.toLowerCase()
+      ? color_negative
+      : color_light};
+  border-color: ${props =>
+    props.isFiltering === props.id.toLowerCase()
+      ? color_negative
+      : color_subtle};
 `;
 
-const FilterWeekButton = styled(SearchBarButton)`
-  color: ${props =>
-    props.isFiltering === "week" ? color_light : color_subtle};
-  background: ${props =>
-    props.isFiltering === "week" ? color_subtle : color_light};
-`;
-
-const FilterMonthButton = styled(SearchBarButton)`
-  color: ${props =>
-    props.isFiltering === "month" ? color_light : color_subtle};
-  background: ${props =>
-    props.isFiltering === "month" ? color_subtle : color_light};
-`;
 const SearchBar = props => {
   return (
     <SearchBarDiv>
@@ -66,28 +61,38 @@ const SearchBar = props => {
           >
             All
           </FilterAllButton>
-          <FilterTodayButton
+          <FilterButton
+            id="day"
             isFiltering={props.isFiltering}
-            onClick={() => props.filterToday()}
+            onClick={() => props.filterDueDate("day")}
           >
             Today
-          </FilterTodayButton>
-          <FilterWeekButton
+          </FilterButton>
+          <FilterButton
+            id="week"
             isFiltering={props.isFiltering}
-            onClick={() => props.filterWeek()}
+            onClick={() => props.filterDueDate("week")}
           >
             Week
-          </FilterWeekButton>
-          <FilterMonthButton
+          </FilterButton>
+          <FilterButton
+            id="month"
             isFiltering={props.isFiltering}
-            onClick={() => props.filterMonth()}
+            onClick={() => props.filterDueDate("month")}
           >
             Month
-          </FilterMonthButton>
+          </FilterButton>
         </div>
         <div>
           {props.catergories.map(catergory => (
-            <SearchBarButton key={catergory}>{catergory}</SearchBarButton>
+            <FilterButton
+              onClick={() => props.filterCatergory(catergory)}
+              key={catergory}
+              id={catergory}
+              isFiltering={props.isFiltering}
+            >
+              {catergory}
+            </FilterButton>
           ))}
         </div>
       </FilterContainer>

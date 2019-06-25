@@ -131,23 +131,18 @@ export const updateTodo = (id, todo) => dispatch => {
 // Filtering
 
 // Due Date Filtering
-export const FILTER_ALL = "FILTER_ALL"
-export const FILTER_TODAY = "FTILER_TODAY";
-export const FILTER_WEEK = "FILTER_WEEK";
-export const FILTER_MONTH = "FILTER_MONTH";
+export const FILTER_ALL = "FILTER_ALL";
+export const FILTER_CATERGORY = "FILTER_CATERGORY";
+export const FILTER_DUE_DATE = "FILTER_DUE_DATE";
 
 export const filterAll = () => dispatch => {
-  dispatch({ type: FILTER_ALL});
+  dispatch({ type: FILTER_ALL });
 };
 
-export const filterToday = () => dispatch => {
-  dispatch({ type: FILTER_TODAY, payload: moment() });
+export const filterCatergory = catergory => dispatch => {
+  dispatch({ type: FILTER_CATERGORY, payload: catergory });
 };
 
-export const filterWeek = () => dispatch => {
-  dispatch({ type: FILTER_WEEK, payload: moment() });
-};
-
-export const filterMonth = () => dispatch => {
-  dispatch({ type: FILTER_MONTH, payload: moment() });
+export const filterDueDate = timespan => dispatch => {
+  dispatch({ type: FILTER_DUE_DATE, payload: [timespan, moment()] });
 };
