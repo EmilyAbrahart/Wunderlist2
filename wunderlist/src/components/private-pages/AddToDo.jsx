@@ -3,6 +3,7 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
 import { FlexFunc, Input, Button } from "./../../styles/reusables";
+import moment from 'moment';
 
 const AddFormDiv = styled.div`
   width: 100%;
@@ -111,7 +112,8 @@ const FormikAddTodoForm = withFormik({
       item: "",
       description: "",
       priority: "2",
-      catergory: "General"
+      catergory: "General",
+      due_date: moment().format('YYYY-MM-DD')
     };
   },
   validationSchema: addTodoFormValidationSchema,

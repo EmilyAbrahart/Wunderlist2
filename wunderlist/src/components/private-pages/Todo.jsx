@@ -18,7 +18,7 @@ import {
 
 const TodoDiv = styled.div`
   ${FlexFunc("row", "flex-start", "flex-start")};
-  height: 2.5rem;
+  height: auto;
   width: 100%;
   text-align: left;
 `;
@@ -52,7 +52,8 @@ const ItemDiv = styled.div`
   font-weight: bold;
   white-space: ${props => (props.isExpanded ? "normal" : "nowrap")};
   text-overflow: ellipsis;
-  overflow: ${props => (props.isExpanded ? "visible" : "hidden")};
+  overflow: hidden;
+  padding-bottom: ${props => (props.isExpanded ? "0.5rem" : "0")};
 `;
 
 const DescriptionSpan = styled.span`
