@@ -14,15 +14,36 @@ const TitleBar = styled.ul`
   width: 100%;
   height: 1.5rem;
   padding: 0;
+  font-weight: bold;
+
   li {
     list-style-type: none;
   }
 `;
 
 const BarPriorityLi = styled.li`
-width: 1rem;
-height: 100%;
+  width: 1rem;
+  height: 100%;
 `;
+
+const BarTodoLi = styled.li`
+  width: 40%;
+  border: 2px solid red;
+`;
+
+const BarCatergoryLi = styled.li`
+  width: 15%;
+  border: 2px solid red;
+`;
+
+const BarDateLi = styled.li`
+  width: 15%;
+  border: 2px solid red;
+`;
+
+const BarButtonLi = styled.li`
+width: 10%;
+`
 
 class TodoList extends React.Component {
   componentDidMount() {
@@ -39,10 +60,11 @@ class TodoList extends React.Component {
       <TodoListDiv>
         <TitleBar>
           <BarPriorityLi> </BarPriorityLi>
+          <BarButtonLi> </BarButtonLi>
           <li> </li>
-          <li>Todo</li>
-          <li>Catergory</li>
-          <li>Due Date</li>
+          <BarTodoLi>Todo</BarTodoLi>
+          <BarCatergoryLi>Catergory</BarCatergoryLi>
+          <BarDateLi>Due Date</BarDateLi>
         </TitleBar>
 
         {this.props.todos.map(todo => (
