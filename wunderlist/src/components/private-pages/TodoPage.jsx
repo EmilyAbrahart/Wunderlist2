@@ -3,17 +3,21 @@ import TodoList from "./TodoList";
 import AddTodo from "./AddToDo";
 import { connect } from "react-redux";
 import { addTodo } from "./../../state/actions";
+import styled from 'styled-components';
+
 
 const TodoPage = props => {
   return (
     <div>
       <h1>Wunderlist</h1>
-      <AddTodo
-        addTodo={props.addTodo}
-        catergories={props.catergories}
-        priorities={props.priorities}
-      />
-      <TodoList isFetching={props.isFetching} />
+      <div>
+        <AddTodo
+          addTodo={props.addTodo}
+          catergories={props.catergories}
+          priorities={props.priorities}
+        />
+        <TodoList isFetching={props.isFetching} />
+      </div>
     </div>
   );
 };
