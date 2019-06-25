@@ -47,3 +47,7 @@ export const Button = (backgroundColor, color) => {
   }
   `;
 };
+
+export const Priority = () => {
+    return 
+}

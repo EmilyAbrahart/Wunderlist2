@@ -7,6 +7,7 @@ import {
   color_neutral,
   color_positive
 } from "./../../styles/reusables";
+import moment from "moment";
 
 const TodoDiv = styled.div`
   ${FlexFunc("row", "center", "center")};
@@ -28,7 +29,7 @@ const PriorityDiv = styled.div`
 
 const ButtonContainer = styled.div`
   ${FlexFunc("row", "center", "center")};
-  display: ${props => (props.openMenu ? 'flex' : 'none')};
+  display: ${props => (props.openMenu ? "flex" : "none")};
 `;
 
 class Todo extends React.Component {
@@ -49,10 +50,11 @@ class Todo extends React.Component {
     const descArray = JSON.parse(this.props.description);
     return (
       <TodoDiv>
-        <PriorityDiv onClick={() => this.toggleMenu()} priority={this.props.priority} />
-        <ButtonContainer
-          openMenu={this.state.openMenu}
-        >
+        <PriorityDiv
+          onClick={() => this.toggleMenu()}
+          priority={this.props.priority}
+        />
+        <ButtonContainer openMenu={this.state.openMenu}>
           <button onClick={() => this.completeTask()}>Complete</button>
           <button>Edit</button>
           <button onClick={() => this.props.deleteTodo(this.props.id)}>
@@ -61,9 +63,13 @@ class Todo extends React.Component {
         </ButtonContainer>
 
         <div>{this.props.item}</div>
-        {descArray[0] && <div>{descArray[0]}</div>}
-        {descArray[1] && <div>Catergory: {descArray[1]}</div>}
-        {this.props.due_date && <div>Due Date: {this.props.due_date}</div>}
+        <div>{descArray[0]}</div>
+        <div>{descArray[1]}</div>
+        <div>
+          {this.props.due_date
+            ? moment(this.props.due_date).format("DD MM YYYY")
+            : " "}
+        </div>
       </TodoDiv>
     );
   }
