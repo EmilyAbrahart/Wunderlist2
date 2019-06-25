@@ -65,17 +65,12 @@ class TodoList extends React.Component {
   }
 
   render() {
-    if (this.props.isFetching) {
-      return <div>Loading</div>;
-    } else if (!this.props.todos || this.props.todos.length === 0) {
-      return <div>You have no active tasks</div>;
-    }
     return (
       <TodoListDiv>
         <TitleBar>
           <BarButtonLi>
             <AddTodoButton onClick={() => this.props.toggleForm()}>
-              {this.props.isAdding ? 'Close' : 'Add Todo'}
+              {this.props.isAdding ? "Close" : "Add Todo"}
             </AddTodoButton>
           </BarButtonLi>
           <BarPriorityLi />
@@ -89,10 +84,19 @@ class TodoList extends React.Component {
           priorities={this.props.priorities}
           isAdding={this.props.isAdding}
         />
-
-        {this.props.todos.map(todo => (
-          <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
-        ))}
+        {this.props.isFetching ? (
+          <div>Loading</div>
+        ) : !this.props.todos || this.props.todos.length === 0 ? (
+          <div>You have no active tasks</div>
+        ) : this.props.isFiltering ? (
+          this.props.filteredTodos.map(todo => (
+            <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
+          ))
+        ) : (
+          this.props.todos.map(todo => (
+            <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
+          ))
+        )}
       </TodoListDiv>
     );
   }

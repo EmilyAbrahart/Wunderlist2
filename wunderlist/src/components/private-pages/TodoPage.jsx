@@ -7,7 +7,8 @@ import {
   addTodo,
   filterMonth,
   filterToday,
-  filterWeek
+  filterWeek,
+  filterAll
 } from "./../../state/actions";
 import styled from "styled-components";
 import { FlexFunc } from "./../../styles/reusables";
@@ -33,9 +34,12 @@ const TodoPage = props => {
     <TodoPageDiv>
       <PageHeader>Wunderlist</PageHeader>
       <SearchBar
+        isFiltering={props.isFiltering}
         catergories={props.catergories}
         filterToday={props.filterToday}
         filterWeek={props.filterWeek}
+        filterMonth={props.filterMonth}
+        filterAll={props.filterAll}
       />
       <TodoSectionContainer>
         <TodoList
@@ -44,6 +48,7 @@ const TodoPage = props => {
           addTodo={props.addTodo}
           catergories={props.catergories}
           priorities={props.priorities}
+          filteredTodos={props.filteredTodos}
         />
       </TodoSectionContainer>
     </TodoPageDiv>
@@ -63,5 +68,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addTodo, filterToday, filterWeek, filterMonth }
+  { addTodo, filterToday, filterWeek, filterMonth, filterAll }
 )(TodoPage);

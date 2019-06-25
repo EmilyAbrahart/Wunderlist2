@@ -4,7 +4,8 @@ import {
   FlexFunc,
   Input,
   Button,
-  color_subtle
+  color_subtle,
+  color_light
 } from "./../../styles/reusables";
 
 const SearchBarDiv = styled.div`
@@ -27,6 +28,31 @@ const SearchBarButton = styled.button`
   ${Button("white", color_subtle)};
 `;
 
+const FilterAllButton = styled(SearchBarButton)`
+  color: ${props => (props.isFiltering ? color_subtle : color_light)};
+  background: ${props => (props.isFiltering ? color_light : color_subtle)};
+`;
+
+const FilterTodayButton = styled(SearchBarButton)`
+  color: ${props =>
+    props.isFiltering === "today" ? color_light : color_subtle};
+  background: ${props =>
+    props.isFiltering === "today" ? color_subtle : color_light};
+`;
+
+const FilterWeekButton = styled(SearchBarButton)`
+  color: ${props =>
+    props.isFiltering === "week" ? color_light : color_subtle};
+  background: ${props =>
+    props.isFiltering === "week" ? color_subtle : color_light};
+`;
+
+const FilterMonthButton = styled(SearchBarButton)`
+  color: ${props =>
+    props.isFiltering === "month" ? color_light : color_subtle};
+  background: ${props =>
+    props.isFiltering === "month" ? color_subtle : color_light};
+`;
 const SearchBar = props => {
   return (
     <SearchBarDiv>
@@ -34,14 +60,30 @@ const SearchBar = props => {
 
       <FilterContainer>
         <div>
-          <SearchBarButton>All</SearchBarButton>
-          <SearchBarButton onClick={() => props.filterToday()}>
+          <FilterAllButton
+            isFiltering={props.isFiltering}
+            onClick={() => props.filterAll()}
+          >
+            All
+          </FilterAllButton>
+          <FilterTodayButton
+            isFiltering={props.isFiltering}
+            onClick={() => props.filterToday()}
+          >
             Today
-          </SearchBarButton>
-          <SearchBarButton onClick={() => props.filterWeek()}>
+          </FilterTodayButton>
+          <FilterWeekButton
+            isFiltering={props.isFiltering}
+            onClick={() => props.filterWeek()}
+          >
             Week
-          </SearchBarButton>
-          <SearchBarButton>Month</SearchBarButton>
+          </FilterWeekButton>
+          <FilterMonthButton
+            isFiltering={props.isFiltering}
+            onClick={() => props.filterMonth()}
+          >
+            Month
+          </FilterMonthButton>
         </div>
         <div>
           {props.catergories.map(catergory => (

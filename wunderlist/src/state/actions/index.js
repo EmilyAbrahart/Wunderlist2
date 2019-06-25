@@ -131,9 +131,14 @@ export const updateTodo = (id, todo) => dispatch => {
 // Filtering
 
 // Due Date Filtering
+export const FILTER_ALL = "FILTER_ALL"
 export const FILTER_TODAY = "FTILER_TODAY";
 export const FILTER_WEEK = "FILTER_WEEK";
 export const FILTER_MONTH = "FILTER_MONTH";
+
+export const filterAll = () => dispatch => {
+  dispatch({ type: FILTER_ALL});
+};
 
 export const filterToday = () => dispatch => {
   dispatch({ type: FILTER_TODAY, payload: moment() });

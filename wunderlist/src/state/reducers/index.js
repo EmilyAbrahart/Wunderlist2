@@ -15,7 +15,8 @@ import {
   LOGIN_FAILURE,
   FILTER_TODAY,
   FILTER_MONTH,
-  FILTER_WEEK
+  FILTER_WEEK,
+  FILTER_ALL
 } from "./../actions/";
 import moment from "moment";
 
@@ -29,7 +30,7 @@ const initialState = {
   catergories: ["General", "Shopping", "Work"],
   priorities: [1, 2, 3],
   isAdding: false,
-  isFiltering: false
+  isFiltering: ""
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -136,23 +137,40 @@ export const rootReducer = (state = initialState, action) => {
         isFetching: false
       };
 
+    case FILTER_ALL:
+      return {
+        ...state,
+        filteredTodos: [],
+        isFiltering: ""
+      };
+
     case FILTER_TODAY:
       return {
         ...state,
-        isFiltering: true,
+        isFiltering: "today",
         filteredTodos: state.todos.filter(todo =>
-          moment(todo.due_date).isSame(action.payload, 'day')
+          moment(todo.due_date).isSame(action.payload, "day")
         )
       };
 
-      case FILTER_WEEK:
-        return {
-          ...state,
-          isFiltering: true,
-          filteredTodos: state.todos.filter(todo =>
-            moment(todo.due_date).isSame(action.payload, 'week')
-          )
-        }
+    case FILTER_WEEK:
+      return {
+        ...state,
+        isFiltering: "week",
+        filteredTodos: state.todos.filter(todo =>
+          moment(todo.due_date).isSame(action.payload, "week")
+        )
+      };
+
+    case FILTER_MONTH:
+      return {
+        ...state,
+        isFiltering: "month",
+        filteredTodos: state.todos.filter(todo =>
+          moment(todo.due_date).isSame(action.payload, "month")
+        )
+      };
+
     default:
       return state;
   }
