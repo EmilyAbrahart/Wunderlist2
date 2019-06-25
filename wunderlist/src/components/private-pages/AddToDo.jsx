@@ -24,6 +24,8 @@ const AddTodoForm = props => {
               </option>
             ))}
           </Field>
+          
+          
         </div>
 
         <div>
@@ -36,6 +38,7 @@ const AddTodoForm = props => {
             ))}
           </Field>
         </div>
+        <div>Due Date: <Field type="date" name="due_date" value={values.due_date}/></div>
 
         <button type="submit">Add</button>
         <button type="reset">Clear</button>
@@ -66,7 +69,8 @@ const FormikAddTodoForm = withFormik({
     const todoObj = {
         item: values.item,
         description: JSON.stringify([values.description, values.catergory]),
-        priority: values.priority
+        priority: values.priority,
+        due_date: values.due_date
     };
     props.addTodo(todoObj);
     resetForm();
