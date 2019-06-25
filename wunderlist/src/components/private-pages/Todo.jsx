@@ -5,7 +5,8 @@ import {
   color_light,
   color_negative,
   color_neutral,
-  color_positive
+  color_positive,
+  Button
 } from "./../../styles/reusables";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,7 +38,11 @@ const PriorityDiv = styled.div`
 
 const ButtonContainer = styled.div`
   ${FlexFunc("row", "center", "center")};
-  width: 10%;
+  width: 15%;
+`;
+
+const TodoButton = styled.button`
+${Button('white', 'black')};
 `;
 
 const ItemDiv = styled.div`
@@ -89,15 +94,15 @@ class Todo extends React.Component {
     return (
       <TodoDiv onClick={this.toggleExpansion}>
         <ButtonContainer>
-          <button onClick={() => this.completeTask()}>
+          <TodoButton onClick={() => this.completeTask()}>
             <FontAwesomeIcon icon={faCheck} />
-          </button>
-          <button>
+          </TodoButton>
+          <TodoButton>
             <FontAwesomeIcon icon={faPencilAlt} />
-          </button>
-          <button onClick={() => this.props.deleteTodo(this.props.id)}>
+          </TodoButton>
+          <TodoButton onClick={() => this.props.deleteTodo(this.props.id)}>
             <FontAwesomeIcon icon={faTrashAlt} />
-          </button>
+          </TodoButton>
         </ButtonContainer>
         <PriorityContainer>
           <PriorityDiv priority={this.props.priority} />

@@ -1,9 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchTodos, deleteTodo, updateTodo } from "./../../state/actions";
+import {
+  fetchTodos,
+  deleteTodo,
+  updateTodo,
+  toggleForm
+} from "./../../state/actions";
 import Todo from "./Todo";
 import styled from "styled-components";
-import { FlexFunc } from "./../../styles/reusables";
+import { FlexFunc, Button } from "./../../styles/reusables";
 import AddTodo from "./AddToDo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -47,7 +52,11 @@ const BarDateLi = styled.li`
 `;
 
 const BarButtonLi = styled.li`
-  width: 10%;
+  width: 15%;
+`;
+
+const AddTodoButton = styled.button`
+  ${Button("white", "black")}
 `;
 
 class TodoList extends React.Component {
@@ -64,10 +73,12 @@ class TodoList extends React.Component {
     return (
       <TodoListDiv>
         <TitleBar>
-          <BarButtonLi> </BarButtonLi>
-          <BarPriorityLi>
-            <FontAwesomeIcon icon={faPlus} />{" "}
-          </BarPriorityLi>
+          <BarButtonLi>
+            <AddTodoButton onClick={() => this.props.toggleForm()}>
+              {this.props.isAdding ? 'Close' : 'Add Todo'}
+            </AddTodoButton>
+          </BarButtonLi>
+          <BarPriorityLi />
           <BarTodoLi>Todo</BarTodoLi>
           <BarCatergoryLi>Catergory</BarCatergoryLi>
           <BarDateLi>Due Date</BarDateLi>
@@ -76,6 +87,7 @@ class TodoList extends React.Component {
           addTodo={this.props.addTodo}
           catergories={this.props.catergories}
           priorities={this.props.priorities}
+          isAdding={this.props.isAdding}
         />
 
         {this.props.todos.map(todo => (
@@ -87,11 +99,12 @@ class TodoList extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    isAdding: state.isAdding
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchTodos, deleteTodo, updateTodo }
+  { fetchTodos, deleteTodo, updateTodo, toggleForm }
 )(TodoList);

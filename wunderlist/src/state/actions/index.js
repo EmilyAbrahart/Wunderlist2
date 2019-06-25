@@ -68,10 +68,14 @@ export const fetchTodos = () => dispatch => {
 };
 
 // Add new tasks
+export const TOGGLE_FORM = "TOGGLE_FORM";
 export const ADD_NEW_TODO = "ADD_NEW_TODO";
 export const ADD_NEW_TODO_SUCCESS = "ADD_NEW_TODO_SUCCESS";
 export const ADD_NEW_TODO_FAILURE = "ADD_NEW_TODO_FAILURE";
 
+export const toggleForm = () => dispatch => {
+  dispatch({type: TOGGLE_FORM});
+}
 export const addTodo = todo => dispatch => {
   dispatch({ type: ADD_NEW_TODO });
   axiosWithAuth()

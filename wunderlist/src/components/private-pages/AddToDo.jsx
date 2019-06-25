@@ -7,11 +7,9 @@ import { FlexFunc, Input, Button } from "./../../styles/reusables";
 const AddFormDiv = styled.div`
   width: 100%;
   ${FlexFunc("column", "center", "flex-start")};
-  margin-bottom: 1rem;
+  display: ${props => (props.isAdding ? "flex" : "none")};
 
-  button {
-    ${Button};
-  }
+  margin-bottom: 1rem;
 
   form {
     width: 100%;
@@ -25,7 +23,11 @@ const AddFormDiv = styled.div`
 `;
 
 const FormButtonContainer = styled.div`
-  width: 10%;
+  width: 15%;
+`;
+
+const FormButton = styled.button`
+  ${Button("white", "black")};
 `;
 const FormPriorityContainer = styled.div`
   width: 5%;
@@ -60,11 +62,11 @@ const FormDateContainer = styled.div`
 const AddTodoForm = props => {
   const { values } = props;
   return (
-    <AddFormDiv>
+    <AddFormDiv isAdding={props.isAdding}>
       <Form>
         <FormButtonContainer>
-          <button type="submit">Add</button>
-          <button type="reset">Clear</button>
+          <FormButton type="submit">Add</FormButton>
+          <FormButton type="reset">Clear</FormButton>
         </FormButtonContainer>
         <FormPriorityContainer>
           <Field component="select" name="priority" value={values.priority}>

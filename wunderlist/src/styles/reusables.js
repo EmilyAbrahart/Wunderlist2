@@ -1,6 +1,7 @@
 // VARIABLES
 // Colors
 export const color_light = "#ffffff";
+export const color_dark = "#1a2035";
 export const color_primary = "#31364a";
 export const color_secondary = "#89ddfb";
 export const color_positive = "#c3e88d";
@@ -35,15 +36,16 @@ export const Button = (backgroundColor, color) => {
   color: ${color};
   cursor: pointer;
   font-weight: bold;
-  border: 2px solid ${color}};
+  border: 1px solid ${color}};
   outline: none;
   font-family: ${text_font};
+  box-sizing: border-box;
   
 
   &:hover {
     color: ${backgroundColor};
     background-color: ${color};
-    border: 2px solid ${backgroundColor};
+    border: 1px solid ${backgroundColor};
   }
   `;
 };

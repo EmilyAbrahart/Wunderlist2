@@ -2,6 +2,7 @@ import {
   FETCH_TODOS_START,
   FETCH_TODOS_SUCCESS,
   FETCH_TODOS_FAILURE,
+  TOGGLE_FORM,
   ADD_NEW_TODO_SUCCESS,
   ADD_NEW_TODO_FAILURE,
   DELETE_TODO_SUCCESS,
@@ -21,7 +22,8 @@ const initialState = {
   isAuthenticating: false,
   error: "",
   catergories: ["General", "Shopping", "Work"],
-  priorities: [1, 2, 3]
+  priorities: [1, 2, 3],
+  isAdding: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -73,7 +75,7 @@ export const rootReducer = (state = initialState, action) => {
     case DELETE_TODO_SUCCESS:
       return {
         ...state,
-        todos: state.todos.filter(todo => todo.id !== action.payload[0]),
+        todos: state.todos.filter(todo => todo.id !== action.payload[0])
       };
 
     case DELETE_TODO_FAILURE:
@@ -83,6 +85,12 @@ export const rootReducer = (state = initialState, action) => {
         isUpdating: false,
         isFetching: false
       };
+      
+      case TOGGLE_FORM:
+        return {
+          ...state,
+          isAdding: !state.isAdding
+        };
 
     case ADD_NEW_TODO_SUCCESS:
       return {
