@@ -2,39 +2,71 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
-import { FlexFunc } from "./../../styles/reusables";
+import { FlexFunc, Input, Button } from "./../../styles/reusables";
 
 const AddFormDiv = styled.div`
-width: 400px;
-height: 100vh;
-${FlexFunc('column', 'center', 'center')};
-`
+  width: 100%;
+  ${FlexFunc("column", "center", "flex-start")};
+  margin-bottom: 1rem;
+
+  button {
+    ${Button};
+  }
+
+  form {
+    width: 100%;
+    ${FlexFunc("row", "flex-start", "flex-start")}
+
+    div {
+      ${FlexFunc("row", "center", "center")};
+      height: 1.5rem;
+    }
+  }
+`;
+
+const FormButtonContainer = styled.div`
+  width: 10%;
+`;
+const FormPriorityContainer = styled.div`
+  width: 5%;
+  select {
+    ${Input("95%")}
+  }
+`;
+
+const FormInfoContainer = styled.div`
+  width: 50%;
+
+  input {
+    ${Input("45%")};
+    margin: 0 0.5rem;
+  }
+`;
+
+const FormCatergoryContainer = styled.div`
+  width: 15%;
+  select {
+    ${Input("95%")}
+  }
+`;
+
+const FormDateContainer = styled.div`
+  width: 15%;
+  input {
+    ${Input("95%")}
+  }
+`;
 
 const AddTodoForm = props => {
   const { values } = props;
   return (
     <AddFormDiv>
-      <h3>Add Task</h3>
       <Form>
-        <div>
-          <Field type="text" name="item" placeholder="Title" />
-        </div>
-        <div>
-          <Field type="text" name="description" placeholder="Description" />
-        </div>
-        <div>
-          Catergory:
-          <Field component="select" name="catergory" value={values.catergory}>
-            {props.catergories.map(catergory => (
-              <option key={catergory} name={catergory}>
-                {catergory}
-              </option>
-            ))}
-          </Field>
-        </div>
-
-        <div>
-          Priority:
+        <FormButtonContainer>
+          <button type="submit">Add</button>
+          <button type="reset">Clear</button>
+        </FormButtonContainer>
+        <FormPriorityContainer>
           <Field component="select" name="priority" value={values.priority}>
             {props.priorities.map(priority => (
               <option key={priority} name={priority}>
@@ -42,14 +74,23 @@ const AddTodoForm = props => {
               </option>
             ))}
           </Field>
-        </div>
-        <div>
-          Due Date:{" "}
+        </FormPriorityContainer>
+        <FormInfoContainer>
+          <Field type="text" name="item" placeholder="Title" />
+          <Field type="text" name="description" placeholder="Description" />
+        </FormInfoContainer>
+        <FormCatergoryContainer>
+          <Field component="select" name="catergory" value={values.catergory}>
+            {props.catergories.map(catergory => (
+              <option key={catergory} name={catergory}>
+                {catergory}
+              </option>
+            ))}
+          </Field>
+        </FormCatergoryContainer>
+        <FormDateContainer>
           <Field type="date" name="due_date" value={values.due_date} />
-        </div>
-
-        <button type="submit">Add</button>
-        <button type="reset">Clear</button>
+        </FormDateContainer>
       </Form>
     </AddFormDiv>
   );

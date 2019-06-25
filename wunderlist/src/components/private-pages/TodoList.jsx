@@ -4,10 +4,17 @@ import { fetchTodos, deleteTodo, updateTodo } from "./../../state/actions";
 import Todo from "./Todo";
 import styled from "styled-components";
 import { FlexFunc } from "./../../styles/reusables";
+import AddTodo from "./AddToDo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const TodoListDiv = styled.div`
   ${FlexFunc("column", "center", "flex-start")};
   width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-top: 4rem;
+  box-sizing: border-box;
 `;
 const TitleBar = styled.ul`
   ${FlexFunc("row", "flex-start", "baseline")};
@@ -18,32 +25,30 @@ const TitleBar = styled.ul`
 
   li {
     list-style-type: none;
+    height: 1.5rem;
   }
 `;
 
 const BarPriorityLi = styled.li`
-  width: 1rem;
+  width: 5%;
   height: 100%;
 `;
 
 const BarTodoLi = styled.li`
-  width: 40%;
-  border: 2px solid red;
+  width: 50%;
 `;
 
 const BarCatergoryLi = styled.li`
   width: 15%;
-  border: 2px solid red;
 `;
 
 const BarDateLi = styled.li`
   width: 15%;
-  border: 2px solid red;
 `;
 
 const BarButtonLi = styled.li`
-width: 10%;
-`
+  width: 10%;
+`;
 
 class TodoList extends React.Component {
   componentDidMount() {
@@ -59,13 +64,19 @@ class TodoList extends React.Component {
     return (
       <TodoListDiv>
         <TitleBar>
-          <BarPriorityLi> </BarPriorityLi>
           <BarButtonLi> </BarButtonLi>
-          <li> </li>
+          <BarPriorityLi>
+            <FontAwesomeIcon icon={faPlus} />{" "}
+          </BarPriorityLi>
           <BarTodoLi>Todo</BarTodoLi>
           <BarCatergoryLi>Catergory</BarCatergoryLi>
           <BarDateLi>Due Date</BarDateLi>
         </TitleBar>
+        <AddTodo
+          addTodo={this.props.addTodo}
+          catergories={this.props.catergories}
+          priorities={this.props.priorities}
+        />
 
         {this.props.todos.map(todo => (
           <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />

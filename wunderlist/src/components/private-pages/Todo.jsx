@@ -41,11 +41,11 @@ const ButtonContainer = styled.div`
 `;
 
 const ItemDiv = styled.div`
-  width: 40%;
+  width: 50%;
   padding-left: 1rem;
   font-weight: bold;
   white-space: ${props => (props.isExpanded ? "normal" : "nowrap")};
- text-overflow: ellipsis;
+  text-overflow: ellipsis;
   overflow: ${props => (props.isExpanded ? "visible" : "hidden")};
 `;
 
@@ -63,6 +63,11 @@ const CatergoryDiv = styled.div`
 const DueDateDiv = styled.div`
   width: 15%;
   text-align: center;
+`;
+
+const PriorityContainer = styled.div`
+width: 5%;
+${FlexFunc('column', 'center', 'center')}
 `;
 
 class Todo extends React.Component {
@@ -94,13 +99,13 @@ class Todo extends React.Component {
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </ButtonContainer>
-        <PriorityDiv priority={this.props.priority} />
+        <PriorityContainer>
+          <PriorityDiv priority={this.props.priority} />
+        </PriorityContainer>
 
         <ItemDiv isExpanded={this.state.isExpanded}>
           {this.props.item}
-          <DescriptionSpan >
-            {descArray[0]}
-          </DescriptionSpan>
+          <DescriptionSpan>{descArray[0]}</DescriptionSpan>
         </ItemDiv>
         <CatergoryDiv>{descArray[1]}</CatergoryDiv>
         <DueDateDiv>

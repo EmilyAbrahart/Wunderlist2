@@ -1,6 +1,6 @@
 import React from "react";
 import TodoList from "./TodoList";
-import AddTodo from "./AddToDo";
+
 import { connect } from "react-redux";
 import { addTodo } from "./../../state/actions";
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import { FlexFunc } from "./../../styles/reusables";
 
 const TodoPageDiv = styled.div`
   ${FlexFunc("column", "center", "center")}
+  margin: 0 aut0;
 `;
 
 const TodoSectionContainer = styled.div`
@@ -16,22 +17,23 @@ const TodoSectionContainer = styled.div`
 `;
 
 const PageHeader = styled.h1`
-position: absolute;
-top: 1rem;
-left: 1rem;
-`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+`;
 
 const TodoPage = props => {
   return (
     <TodoPageDiv>
       <PageHeader>Wunderlist</PageHeader>
       <TodoSectionContainer>
-        <AddTodo
+       
+        <TodoList
+          isFetching={props.isFetching}
           addTodo={props.addTodo}
           catergories={props.catergories}
           priorities={props.priorities}
         />
-        <TodoList isFetching={props.isFetching} />
       </TodoSectionContainer>
     </TodoPageDiv>
   );

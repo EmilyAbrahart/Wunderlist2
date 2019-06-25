@@ -48,6 +48,19 @@ export const Button = (backgroundColor, color) => {
   `;
 };
 
-export const Priority = () => {
-    return 
+export const Input = (width) => {
+    return `
+    width: ${width};
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 0.8rem;
+    height: 1.5rem;
+    border: 1px solid ${color_subtle};
+
+     &:focus {
+       box-shadow: ${shadow};
+     }
+    `
 }
