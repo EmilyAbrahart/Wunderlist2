@@ -10,8 +10,6 @@ import Todo from "./Todo";
 import styled from "styled-components";
 import { FlexFunc, Button } from "./../../styles/reusables";
 import AddTodo from "./AddToDo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const TodoListDiv = styled.div`
   ${FlexFunc("column", "center", "flex-start")};

@@ -129,8 +129,6 @@ export const updateTodo = (id, todo) => dispatch => {
 };
 
 // Filtering
-
-// Due Date Filtering
 export const FILTER_ALL = "FILTER_ALL";
 export const FILTER_CATERGORY = "FILTER_CATERGORY";
 export const FILTER_DUE_DATE = "FILTER_DUE_DATE";
@@ -145,4 +143,21 @@ export const filterCatergory = catergory => dispatch => {
 
 export const filterDueDate = timespan => dispatch => {
   dispatch({ type: FILTER_DUE_DATE, payload: [timespan, moment()] });
+};
+
+// Search
+export const SEARCH_START = "SEARCH_START";
+export const SEARCH_END = "SEARCH_END";
+export const SEARCH = "SEARCH";
+
+export const searchStart = () => dispatch => {
+  dispatch({ type: SEARCH_START });
+};
+
+export const searchEnd = () => dispatch => {
+  dispatch({ type: SEARCH_START });
+};
+
+export const search = query => dispatch => {
+  dispatch({ type: SEARCH, payload: query });
 };

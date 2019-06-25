@@ -33,6 +33,10 @@ const FilterAllButton = styled(SearchBarButton)`
   color: ${props => (props.isFiltering ? color_subtle : color_light)};
   background: ${props => (props.isFiltering ? color_light : color_negative)};
   border-color: ${props => (props.isFiltering ? color_subtle : color_negative)};
+  &:hover {
+    background: ${color_negative};
+    border-color: ${color_negative};
+  }
 `;
 
 const FilterButton = styled(SearchBarButton)`
@@ -46,12 +50,24 @@ const FilterButton = styled(SearchBarButton)`
     props.isFiltering === props.id.toLowerCase()
       ? color_negative
       : color_subtle};
+  &:hover {
+    background: ${color_negative};
+    border-color: ${color_negative};
+  }
 `;
 
 const SearchBar = props => {
+  const searchRef = React.createRef();
+
   return (
     <SearchBarDiv>
-      <SearchBarInput type="text" />
+      <SearchBarInput
+        type="text"
+        placeholder="Search..."
+        ref={searchRef}
+        onFocus={() => props.searchStart()}
+        onChange={() => props.search(searchRef.current.value.toLowerCase())}
+      />
 
       <FilterContainer>
         <div>

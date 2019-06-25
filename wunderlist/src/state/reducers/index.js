@@ -15,7 +15,10 @@ import {
   LOGIN_FAILURE,
   FILTER_CATERGORY,
   FILTER_DUE_DATE,
-  FILTER_ALL
+  FILTER_ALL,
+  SEARCH_START,
+  SEARCH_END,
+  SEARCH
 } from "./../actions/";
 import moment from "moment";
 
@@ -161,6 +164,31 @@ export const rootReducer = (state = initialState, action) => {
           todo => TodoCatergory(todo) === action.payload
         )
       };
+
+    case SEARCH_START:
+      return {
+        ...state,
+        isFiltering: "search"
+      };
+
+    case SEARCH_END:
+      return {
+        ...state,
+        isFiltering: ""
+      };
+
+    case SEARCH:
+      return {
+        ...state,
+        filteredTodos: state.todos.filter(
+          todo =>
+            todo.item.toLowerCase().includes(action.payload) ||
+            JSON.parse(todo.description)[0]
+              .toLowerCase()
+              .includes(action.payload)
+        )
+      };
+
     default:
       return state;
   }

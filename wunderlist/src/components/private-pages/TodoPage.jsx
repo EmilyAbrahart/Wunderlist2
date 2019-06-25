@@ -7,7 +7,10 @@ import {
   addTodo,
   filterAll,
   filterCatergory,
-  filterDueDate
+  filterDueDate,
+  searchStart,
+  searchEnd,
+  search
 } from "./../../state/actions";
 import styled from "styled-components";
 import { FlexFunc } from "./../../styles/reusables";
@@ -35,12 +38,12 @@ const TodoPage = props => {
       <SearchBar
         isFiltering={props.isFiltering}
         catergories={props.catergories}
-        filterToday={props.filterToday}
-        filterWeek={props.filterWeek}
-        filterMonth={props.filterMonth}
         filterAll={props.filterAll}
         filterCatergory={props.filterCatergory}
         filterDueDate={props.filterDueDate}
+        searchStart={props.searchStart}
+        searchEnd={props.searchEnd}
+        search={props.search}
       />
       <TodoSectionContainer>
         <TodoList
@@ -73,6 +76,9 @@ export default connect(
     addTodo,
     filterAll,
     filterCatergory,
-    filterDueDate
+    filterDueDate,
+    searchStart,
+    searchEnd,
+    search
   }
 )(TodoPage);
