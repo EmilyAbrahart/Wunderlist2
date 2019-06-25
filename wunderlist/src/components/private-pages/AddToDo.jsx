@@ -1,12 +1,19 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import styled from 'styled-components';
+import styled from "styled-components";
+import { FlexFunc } from "./../../styles/reusables";
+
+const AddFormDiv = styled.div`
+width: 400px;
+height: 100vh;
+${FlexFunc('column', 'center', 'center')};
+`
 
 const AddTodoForm = props => {
   const { values } = props;
   return (
-    <div>
+    <AddFormDiv>
       <h3>Add Task</h3>
       <Form>
         <div>
@@ -24,8 +31,6 @@ const AddTodoForm = props => {
               </option>
             ))}
           </Field>
-          
-          
         </div>
 
         <div>
@@ -38,15 +43,17 @@ const AddTodoForm = props => {
             ))}
           </Field>
         </div>
-        <div>Due Date: <Field type="date" name="due_date" value={values.due_date}/></div>
+        <div>
+          Due Date:{" "}
+          <Field type="date" name="due_date" value={values.due_date} />
+        </div>
 
         <button type="submit">Add</button>
         <button type="reset">Clear</button>
       </Form>
-    </div>
+    </AddFormDiv>
   );
 };
-
 
 const addTodoFormValidationSchema = Yup.object().shape({
   item: Yup.string()
@@ -67,10 +74,10 @@ const FormikAddTodoForm = withFormik({
   validationSchema: addTodoFormValidationSchema,
   handleSubmit(values, { props, resetForm }) {
     const todoObj = {
-        item: values.item,
-        description: JSON.stringify([values.description, values.catergory]),
-        priority: values.priority,
-        due_date: values.due_date
+      item: values.item,
+      description: JSON.stringify([values.description, values.catergory]),
+      priority: values.priority,
+      due_date: values.due_date
     };
     props.addTodo(todoObj);
     resetForm();
