@@ -12,18 +12,24 @@ import {
   UPDATE_TODO_START,
   LOGIN_START,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  FILTER_TODAY,
+  FILTER_MONTH,
+  FILTER_WEEK
 } from "./../actions/";
+import moment from "moment";
 
 const initialState = {
   todos: [],
+  filteredTodos: [],
   isFetching: false,
   isUpdating: false,
   isAuthenticating: false,
   error: "",
   catergories: ["General", "Shopping", "Work"],
   priorities: [1, 2, 3],
-  isAdding: false
+  isAdding: false,
+  isFiltering: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -85,12 +91,12 @@ export const rootReducer = (state = initialState, action) => {
         isUpdating: false,
         isFetching: false
       };
-      
-      case TOGGLE_FORM:
-        return {
-          ...state,
-          isAdding: !state.isAdding
-        };
+
+    case TOGGLE_FORM:
+      return {
+        ...state,
+        isAdding: !state.isAdding
+      };
 
     case ADD_NEW_TODO_SUCCESS:
       return {
@@ -130,6 +136,23 @@ export const rootReducer = (state = initialState, action) => {
         isFetching: false
       };
 
+    case FILTER_TODAY:
+      return {
+        ...state,
+        isFiltering: true,
+        filteredTodos: state.todos.filter(todo =>
+          moment(todo.due_date).isSame(action.payload, 'day')
+        )
+      };
+
+      case FILTER_WEEK:
+        return {
+          ...state,
+          isFiltering: true,
+          filteredTodos: state.todos.filter(todo =>
+            moment(todo.due_date).isSame(action.payload, 'week')
+          )
+        }
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import axiosWithAuth from "./../../authentication/axiosWithAuth";
+import moment from "moment";
 
 // Registration
 export const REGISTRATION_START = "REGISTRATION_START";
@@ -74,13 +75,13 @@ export const ADD_NEW_TODO_SUCCESS = "ADD_NEW_TODO_SUCCESS";
 export const ADD_NEW_TODO_FAILURE = "ADD_NEW_TODO_FAILURE";
 
 export const toggleForm = () => dispatch => {
-  dispatch({type: TOGGLE_FORM});
-}
+  dispatch({ type: TOGGLE_FORM });
+};
 export const addTodo = todo => dispatch => {
   dispatch({ type: ADD_NEW_TODO });
   axiosWithAuth()
     .post("https://backend-wunderlist.herokuapp.com/api/todos", todo)
-    .then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data}))
+    .then(res => dispatch({ type: ADD_NEW_TODO_SUCCESS, payload: res.data }))
     .catch(() =>
       dispatch({
         type: ADD_NEW_TODO_FAILURE,
@@ -99,7 +100,7 @@ export const deleteTodo = id => dispatch => {
   dispatch({ type: DELETE_TODO });
   axiosWithAuth()
     .delete(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
-    .then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data}))
+    .then(res => dispatch({ type: DELETE_TODO_SUCCESS, payload: res.data }))
     .catch(() =>
       dispatch({
         type: DELETE_TODO_FAILURE,
@@ -125,4 +126,23 @@ export const updateTodo = (id, todo) => dispatch => {
         payload: "Unable to update task. Please try again."
       })
     );
+};
+
+// Filtering
+
+// Due Date Filtering
+export const FILTER_TODAY = "FTILER_TODAY";
+export const FILTER_WEEK = "FILTER_WEEK";
+export const FILTER_MONTH = "FILTER_MONTH";
+
+export const filterToday = () => dispatch => {
+  dispatch({ type: FILTER_TODAY, payload: moment() });
+};
+
+export const filterWeek = () => dispatch => {
+  dispatch({ type: FILTER_WEEK, payload: moment() });
+};
+
+export const filterMonth = () => dispatch => {
+  dispatch({ type: FILTER_MONTH, payload: moment() });
 };
