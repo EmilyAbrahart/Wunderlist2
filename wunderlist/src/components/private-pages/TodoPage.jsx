@@ -53,6 +53,7 @@ const TodoPage = props => {
           catergories={props.catergories}
           priorities={props.priorities}
           filteredTodos={props.filteredTodos}
+          filterAll={props.filterAll}
         />
       </TodoSectionContainer>
     </TodoPageDiv>
