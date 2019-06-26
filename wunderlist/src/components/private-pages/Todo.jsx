@@ -29,11 +29,11 @@ const TodoDiv = styled.div`
 const PriorityDiv = styled.div`
   width: 1rem;
   background: ${props =>
-    props.priority === 1
+    props.priority.toString() === "1"
       ? color_negative
-      : props.priority === 2
+      : props.priority.toString() === "2"
       ? color_neutral
-      : props.priority === 3
+      : props.priority.toString() === "3"
       ? color_positive
       : color_light};
   height: 1.5rem;
