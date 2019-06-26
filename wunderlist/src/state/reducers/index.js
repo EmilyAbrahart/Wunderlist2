@@ -126,7 +126,9 @@ export const rootReducer = (state = initialState, action) => {
     case UPDATE_TODO_SUCCESS:
       return {
         ...state,
-        todos: action.payload,
+        todos: state.todos.map((todo, index) =>
+          index === action.payload[0] ? {...todo, ...action.payload[1]} : todo
+        ),
         isUpdating: false,
         isFetching: false
       };

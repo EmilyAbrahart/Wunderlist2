@@ -6,6 +6,7 @@ import {
   color_negative,
   color_neutral,
   color_positive,
+  color_subtle,
   Button
 } from "./../../styles/reusables";
 import moment from "moment";
@@ -15,12 +16,14 @@ import {
   faPencilAlt,
   faCheck
 } from "@fortawesome/free-solid-svg-icons";
+import UpdateTodoForm from "./UpdateTodo";
 
 const TodoDiv = styled.div`
   ${FlexFunc("row", "flex-start", "flex-start")};
   height: auto;
   width: 100%;
   text-align: left;
+  position: relative;
 `;
 
 const PriorityDiv = styled.div`
@@ -42,8 +45,8 @@ const ButtonContainer = styled.div`
 `;
 
 const TodoButton = styled.button`
-${Button('white', 'black')};
-border: none;
+  ${Button(color_light, color_subtle)};
+  border: none;
 `;
 
 const ItemDiv = styled.div`
@@ -73,14 +76,15 @@ const DueDateDiv = styled.div`
 `;
 
 const PriorityContainer = styled.div`
-width: 5%;
-${FlexFunc('column', 'center', 'center')}
+  width: 5%;
+  ${FlexFunc("column", "center", "center")}
 `;
 
 class Todo extends React.Component {
   state = {
     isComplete: false,
-    isExpanded: false
+    isExpanded: false,
+    isUpdating: false
   };
 
   toggleExpansion = () => {
@@ -91,35 +95,56 @@ class Todo extends React.Component {
     this.setState({ isComplete: true });
   };
 
+  toggleUpdate = () => {
+    this.setState({ isUpdating: !this.state.isUpdating });
+  };
+
   render() {
     const descArray = JSON.parse(this.props.description);
     return (
-      <TodoDiv onClick={this.toggleExpansion}>
+      <TodoDiv
+        isUpdating={this.state.isUpdating}
+        onClick={this.toggleExpansion}
+      >
         <ButtonContainer>
           <TodoButton onClick={() => this.completeTask()}>
             <FontAwesomeIcon icon={faCheck} />
           </TodoButton>
-          <TodoButton>
+          <TodoButton onClick={() => this.toggleUpdate()}>
             <FontAwesomeIcon icon={faPencilAlt} />
           </TodoButton>
           <TodoButton onClick={() => this.props.deleteTodo(this.props.id)}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </TodoButton>
         </ButtonContainer>
-        <PriorityContainer>
-          <PriorityDiv priority={this.props.priority} />
-        </PriorityContainer>
-
-        <ItemDiv isExpanded={this.state.isExpanded}>
-          {this.props.item}
-          <DescriptionSpan>{descArray[0]}</DescriptionSpan>
-        </ItemDiv>
-        <CatergoryDiv>{descArray[1]}</CatergoryDiv>
-        <DueDateDiv>
-          {this.props.due_date
-            ? moment(this.props.due_date).format("DD MM YYYY")
-            : "-"}
-        </DueDateDiv>
+        {this.state.isUpdating ? (
+          <UpdateTodoForm
+            {...this.props}
+            toggleUpdate={this.toggleUpdate}
+            isUpdating={this.state.isUpdating}
+            updateTodo={this.props.updateTodo}
+            priorities={this.props.priorities}
+          />
+        ) : (
+          <>
+            <PriorityContainer>
+              <PriorityDiv priority={this.props.priority} />
+            </PriorityContainer>
+            <ItemDiv
+              isExpanded={this.state.isExpanded}
+              isUpdating={this.state.isUpdating}
+            >
+              {this.props.item}
+              <DescriptionSpan>{descArray[0]}</DescriptionSpan>
+            </ItemDiv>
+            <CatergoryDiv>{descArray[1]}</CatergoryDiv>
+            <DueDateDiv>
+              {this.props.due_date
+                ? moment(this.props.due_date).format("DD MM YYYY")
+                : "-"}
+            </DueDateDiv>
+          </>
+        )}
       </TodoDiv>
     );
   }

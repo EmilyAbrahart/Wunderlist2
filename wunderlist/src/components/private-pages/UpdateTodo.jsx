@@ -5,12 +5,12 @@ import styled from "styled-components";
 import { FlexFunc, Input, Button } from "./../../styles/reusables";
 import moment from "moment";
 
-const AddFormDiv = styled.div`
+const UpdateFormDiv = styled.div`
   width: 100%;
   ${FlexFunc("column", "center", "flex-start")};
-  display: ${props => (props.isAdding ? "flex" : "none")};
-
-  margin-bottom: 1rem;
+  display: ${props => (props.isUpdating ? "flex" : "none")};
+  position: absolute;
+  background: white;
 
   form {
     width: 100%;
@@ -25,11 +25,13 @@ const AddFormDiv = styled.div`
 
 const FormButtonContainer = styled.div`
   width: 15%;
+  opacity: 0%;
 `;
 
 const FormButton = styled.button`
   ${Button("white", "black")};
 `;
+
 const FormPriorityContainer = styled.div`
   width: 5%;
   select {
@@ -60,14 +62,16 @@ const FormDateContainer = styled.div`
   }
 `;
 
-const AddTodoForm = props => {
+const UpdateTodoForm = props => {
   const { values } = props;
   return (
-    <AddFormDiv isAdding={props.isAdding}>
+    <UpdateFormDiv isUpdating={props.isUpdating}>
       <Form>
         <FormButtonContainer>
-          <FormButton type="submit">Add</FormButton>
-          <FormButton type="reset">Clear</FormButton>
+          <FormButton type="button" onClick={() => props.toggleUpdate()}>
+            Cancel
+          </FormButton>
+          <FormButton type="submit">Submit</FormButton>
         </FormButtonContainer>
         <FormPriorityContainer>
           <Field component="select" name="priority" value={values.priority}>
@@ -95,28 +99,28 @@ const AddTodoForm = props => {
           <Field type="date" name="due_date" value={values.due_date} />
         </FormDateContainer>
       </Form>
-    </AddFormDiv>
+    </UpdateFormDiv>
   );
 };
 
-const addTodoFormValidationSchema = Yup.object().shape({
+const updateTodoFormValidationSchema = Yup.object().shape({
   item: Yup.string()
     .max(128, "Item must not exceed 128 characters.")
     .required("Item is required."),
   description: Yup.string()
 });
 
-const FormikAddTodoForm = withFormik({
-  mapPropsToValues() {
+const FormikUpdateTodoForm = withFormik({
+  mapPropsToValues(props) {
     return {
-      item: "",
-      description: "",
-      priority: "2",
-      catergory: "General",
+      item: props.item,
+      description: JSON.parse(props.description)[0],
+      priority: props.priority,
+      catergory: JSON.parse(props.description)[1],
       due_date: moment().format("YYYY-MM-DD")
     };
   },
-  validationSchema: addTodoFormValidationSchema,
+  validationSchema: updateTodoFormValidationSchema,
   handleSubmit(values, { props, resetForm }) {
     const todoObj = {
       item: values.item,
@@ -124,10 +128,11 @@ const FormikAddTodoForm = withFormik({
       priority: values.priority,
       due_date: values.due_date
     };
-    console.log(todoObj);
-    props.addTodo(todoObj);
+    props.updateTodo(props.todoIndex, props.id, todoObj);
     resetForm();
+    props.toggleUpdate();
+   
   }
-})(AddTodoForm);
+})(UpdateTodoForm);
 
-export default FormikAddTodoForm;
+export default FormikUpdateTodoForm;

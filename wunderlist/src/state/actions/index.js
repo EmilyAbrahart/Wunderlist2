@@ -111,15 +111,18 @@ export const deleteTodo = id => dispatch => {
 };
 
 // Update tasks
+export const UPDATE = "UPDATE";
 export const UPDATE_TODO_START = "UPDATE_TODO_START";
 export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
 export const UPDATE_TODO_FAILURE = "UPDATE_TODO_FAILURE";
 
-export const updateTodo = (id, todo) => dispatch => {
+export const updateTodo = (index, id, todo) => dispatch => {
   dispatch({ type: UPDATE_TODO_START });
   axiosWithAuth()
     .put(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`, todo)
-    .then(res => dispatch({ type: UPDATE_TODO_SUCCESS, payload: res.data }))
+    .then(res =>
+      dispatch({ type: UPDATE_TODO_SUCCESS, payload: [index, todo] })
+    )
     .catch(() =>
       dispatch({
         type: UPDATE_TODO_FAILURE,

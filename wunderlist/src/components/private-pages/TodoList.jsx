@@ -71,7 +71,7 @@ class TodoList extends React.Component {
               {this.props.isAdding ? "Close" : "Add Todo"}
             </AddTodoButton>
           </BarButtonLi>
-          <BarPriorityLi />
+          <BarPriorityLi>!</BarPriorityLi>
           <BarTodoLi>Todo</BarTodoLi>
           <BarCatergoryLi>Catergory</BarCatergoryLi>
           <BarDateLi>Due Date</BarDateLi>
@@ -91,8 +91,16 @@ class TodoList extends React.Component {
             <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
           ))
         ) : (
-          this.props.todos.map(todo => (
-            <Todo key={todo.id} {...todo} deleteTodo={this.props.deleteTodo} />
+          this.props.todos.map((todo, index) => (
+            <Todo
+              key={todo.id}
+              {...todo}
+              todoIndex={index}
+              updateTodo={this.props.updateTodo}
+              deleteTodo={this.props.deleteTodo}
+              catergories={this.props.catergories}
+              priorities={this.props.priorities}
+            />
           ))
         )}
       </TodoListDiv>
