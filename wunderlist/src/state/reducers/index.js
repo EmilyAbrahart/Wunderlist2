@@ -21,7 +21,7 @@ import {
 	SEARCH_START,
 	SEARCH_END,
 	SEARCH,
-	TODO_CHECK
+	SCHEDULE_TODO
 } from './../actions/';
 import moment from 'moment';
 
@@ -234,25 +234,12 @@ export const rootReducer = (state = initialState, action) => {
 				)
 			};
 
-		case TODO_CHECK:
+		case SCHEDULE_TODO:
 			return {
 				...state,
-				activeTodos: state.todos.filter(
-					todo => JSON.parse(todo.description).length === 2
-				),
-				completedTodos: state.todos.filter(
-					todo =>
-						JSON.parse(todo.description).length > 2 &&
-						JSON.parse(todo.description).includes('TASK_COMPLETED') &&
-						!JSON.parse(todo.description).includes('TASK_DELETED')
-				),
-				deletedTodos: state.todos.filter(
-					todo =>
-						JSON.parse(todo.description).length > 2 &&
-						JSON.parse(todo.description).includes('TASK_DELETED')
-				)
+				scheduledTodos: [...state.scheduledTodos, action.payload]
 			};
-
+			
 		default:
 			return state;
 	}

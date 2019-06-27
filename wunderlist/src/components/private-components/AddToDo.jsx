@@ -2,10 +2,18 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { FlexFunc, Input, Button } from './../../styles/reusables';
+import {
+	FlexFunc,
+	Input,
+	Button,
+	color_light,
+	color_subtle
+} from './../../styles/reusables';
 import moment from 'moment';
-import { addTodo } from './../../state/actions';
+import { addTodo, scheduleTodo } from './../../state/actions';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const AddFormDiv = styled.div`
 	width: 100%;
@@ -30,8 +38,10 @@ const FormButtonContainer = styled.div`
 `;
 
 const FormButton = styled.button`
-	${Button('white', 'black')};
+	${Button(color_light, color_subtle)};
+	border-color: ${color_light};
 `;
+
 const FormPriorityContainer = styled.div`
 	width: 5%;
 	select {
@@ -68,11 +78,19 @@ const AddTodoForm = props => {
 		<AddFormDiv isAdding={props.isAdding}>
 			<Form>
 				<FormButtonContainer>
-					<FormButton type="submit">Add</FormButton>
-					<FormButton type="reset">Clear</FormButton>
-						<div>
-					<Field type="checkbox" name="recurring" checked={values.recurring}/>
-				</div>
+					<FormButton type="submit">
+						<FontAwesomeIcon icon={faCheck} />
+					</FormButton>
+					<FormButton type="reset">
+						<FontAwesomeIcon icon={faTimes} />
+					</FormButton>
+					<div>
+						<Field
+							type="checkbox"
+							name="recurring"
+							checked={values.recurring}
+						/>
+					</div>
 				</FormButtonContainer>
 				<FormPriorityContainer>
 					<Field component="select" name="priority" value={values.priority}>
@@ -99,7 +117,6 @@ const AddTodoForm = props => {
 				<FormDateContainer>
 					<Field type="date" name="due_date" value={values.due_date} />
 				</FormDateContainer>
-			
 			</Form>
 		</AddFormDiv>
 	);
@@ -119,7 +136,8 @@ const FormikAddTodoForm = withFormik({
 			description: '',
 			priority: '2',
 			catergory: 'General',
-			due_date: moment().format('YYYY-MM-DD')
+			due_date: moment().format('YYYY-MM-DD'),
+			recurring: false
 		};
 	},
 	validationSchema: addTodoFormValidationSchema,
@@ -130,6 +148,16 @@ const FormikAddTodoForm = withFormik({
 			priority: values.priority,
 			due_date: values.due_date
 		};
+
+		const recurringObj = {
+			todo: todoObj,
+			created: moment(),
+			interval: 7
+		};
+
+		if (values.recurring) {
+			props.scheduleTodo(recurringObj);
+		}
 		props.addTodo(todoObj);
 		resetForm();
 	}
@@ -145,5 +173,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addTodo }
+	{ addTodo, scheduleTodo }
 )(FormikAddTodoForm);

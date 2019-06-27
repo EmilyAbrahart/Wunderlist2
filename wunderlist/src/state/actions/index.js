@@ -207,9 +207,10 @@ export const search = query => dispatch => {
 	dispatch({ type: SEARCH, payload: query });
 };
 
-// Force todo check to ensure todos are in the correct array.
-export const TODO_CHECK = 'TODO_CHECK';
+// Scheduling
+// Recurring todos
+export const SCHEDULE_TODO = 'SCHEDULE_TODO';
 
-export const todoCheck = () => dispatch => {
-	dispatch({ type: TODO_CHECK });
+export const scheduleTodo = todoInfo => dispatch => {
+	dispatch({ type: SCHEDULE_TODO, payload: todoInfo });
 };
