@@ -3,12 +3,10 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import {
-	color_dark,
 	color_light,
 	shadow,
 	FlexFunc,
 	Input,
-	Button,
 	header_font,
 	color_primary, tablet, mobile
 } from '../../styles';
@@ -40,11 +38,11 @@ const LoginContainer = styled.div`
 	}
 `;
 
-const FormButton = styled.div`
-	${Button(color_light, color_dark)};
-	border: 2px solid ${color_dark};
-	width: 50%;
-`;
+// const FormButton = styled.div`
+// 	${Button(color_light, color_dark)};
+// 	border: 2px solid ${color_dark};
+// 	width: 50%;
+// `;
 
 const LoginFormHeader = styled.h3`
 	font-size: 2rem;
@@ -60,7 +58,7 @@ const RegistrationForm = () => {
 
 				<Field type="password" name="password" placeholder="Password" />
 
-				<FormButton type="submit">Sign Up</FormButton>
+				<button type="submit">Sign Up</button>
 			</Form>
 		</LoginContainer>
 	);

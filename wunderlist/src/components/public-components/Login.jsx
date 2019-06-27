@@ -8,9 +8,9 @@ import {
 	shadow,
 	FlexFunc,
 	Input,
-  Button,
-  header_font, 
-  tablet, mobile
+	header_font,
+	tablet,
+	mobile
 } from '../../styles';
 
 const LoginContainer = styled.div`
@@ -19,17 +19,16 @@ const LoginContainer = styled.div`
 	width: 550px;
 	height: 400px;
 	border-radius: 2rem;
-  box-shadow: ${shadow};
-  color: ${color_light};
-   @media ${tablet} {
-     margin-top: 2rem;
-   }
-   @media ${mobile} {
-     width: 90%;
-   }
+	box-shadow: ${shadow};
+	color: ${color_light};
+	@media ${tablet} {
+		margin-top: 2rem;
+	}
+	@media ${mobile} {
+		width: 90%;
+	}
 
 	form {
-
 		width: 100%;
 		${FlexFunc('column', 'space-evenly', 'center')};
 
@@ -41,16 +40,16 @@ const LoginContainer = styled.div`
 	}
 `;
 
-const FormButton = styled.div`
-	${Button(color_light, color_negative)};
-	border: 2px solid ${color_negative};
-	width: 50%;
-`;
+// const FormButton = styled.div`
+// 	${Button(color_light, color_negative)};
+// 	border: 2px solid ${color_negative};
+// 	width: 50%;
+// `;
 
 const LoginFormHeader = styled.h3`
-font-size: 2rem;
-font-family: ${header_font};
-`
+	font-size: 2rem;
+	font-family: ${header_font};
+`;
 
 const LoginForm = () => {
 	return (
@@ -61,7 +60,7 @@ const LoginForm = () => {
 
 				<Field type="password" name="password" placeholder="Password" />
 
-				<FormButton type="submit">Login</FormButton>
+				<button type="submit">Login</button>
 			</Form>
 		</LoginContainer>
 	);
