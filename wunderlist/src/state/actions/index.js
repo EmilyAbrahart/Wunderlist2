@@ -215,9 +215,3 @@ export const scheduleTodo = todoInfo => dispatch => {
 	dispatch({ type: SCHEDULE_TODO, payload: todoInfo });
 };
 
-// Delete archived todos after 7 days
-export const SCHEDULE_DELETE = 'SCHEDULE_DELETE';
-
-export const scheduleDelete = deleteInfo => dispatch => {
-	dispatch({ type: SCHEDULE_DELETE, payload: deleteInfo});
-};

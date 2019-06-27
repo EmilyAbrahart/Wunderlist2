@@ -72,6 +72,13 @@ const FormDateContainer = styled.div`
 	}
 `;
 
+const RecurringContainer = styled.div`
+	width: 1.5rem;
+	input {
+		${Input('1.5rem')};
+	}
+`;
+
 const AddTodoForm = props => {
 	const { values } = props;
 	return (
@@ -84,14 +91,11 @@ const AddTodoForm = props => {
 					<FormButton type="reset">
 						<FontAwesomeIcon icon={faTimes} />
 					</FormButton>
-					<div>
-						<Field
-							type="checkbox"
-							name="recurring"
-							checked={values.recurring}
-						/>
-					</div>
+					<RecurringContainer>
+						<Field type="text" name="recurring" />
+					</RecurringContainer>
 				</FormButtonContainer>
+
 				<FormPriorityContainer>
 					<Field component="select" name="priority" value={values.priority}>
 						{props.priorities.map(priority => (
@@ -137,7 +141,7 @@ const FormikAddTodoForm = withFormik({
 			priority: '2',
 			catergory: 'General',
 			due_date: moment().format('YYYY-MM-DD'),
-			recurring: false
+			recurring: ''
 		};
 	},
 	validationSchema: addTodoFormValidationSchema,
@@ -150,15 +154,21 @@ const FormikAddTodoForm = withFormik({
 		};
 
 		const recurringObj = {
-			todo: todoObj,
-			created: moment(),
-			interval: 7
+			item: values.item,
+			description: JSON.stringify([
+				values.description,
+				values.catergory,
+				{ created: moment(), interval: values.recurring }
+			]),
+			priority: values.priority,
+			due_date: values.due_date
 		};
 
 		if (values.recurring) {
-			props.scheduleTodo(recurringObj);
+			props.addTodo(recurringObj);
+		} else {
+			props.addTodo(todoObj);
 		}
-		props.addTodo(todoObj);
 		resetForm();
 	}
 })(AddTodoForm);

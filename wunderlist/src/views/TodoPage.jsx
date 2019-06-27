@@ -8,9 +8,10 @@ import TodoHeader from '../components/private-components/TodoHeader';
 import NavBar from '../components/private-components/Nav';
 import FilteredTodos from '../components/private-components/FilteredTodos';
 import { connect } from 'react-redux';
-import { fetchTodos } from '../state/actions';
+import { fetchTodos, deleteTodo } from '../state/actions';
 import styled from 'styled-components';
 import { FlexFunc } from '../styles/reusables';
+import moment from 'moment';
 
 const TodoPageDiv = styled.div`
 	${FlexFunc('column', 'center', 'center')}
@@ -30,8 +31,20 @@ const TodoSectionContainer = styled.div`
 `;
 
 class TodoPage extends React.Component {
+	deleteTaskScheduler = () => {
+		console.log('Checking archived tasks...');
+		for (const task of this.props.deletedTodos) {
+			if (moment().isAfter(moment(task.due_date).add(7, 'd'))) {
+				this.props.deleteTodo(task.id);
+			}
+		}
+	};
+
+	recurringTaskScheduler = () => {};
+
 	componentDidMount() {
 		this.props.fetchTodos();
+		setInterval(this.deleteTaskScheduler, 120000);
 	}
 
 	render() {
@@ -54,11 +67,13 @@ class TodoPage extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		todos: state.todos
+		todos: state.todos,
+		scheduledTodos: state.scheduledTodos,
+		deletedTodos: state.deletedTodos
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ fetchTodos }
+	{ fetchTodos, deleteTodo }
 )(TodoPage);

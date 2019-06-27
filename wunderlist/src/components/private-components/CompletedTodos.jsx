@@ -25,8 +25,8 @@ const CompletedTodos = props => {
 
 const mapStateToProps = state => {
 	return {
-    completedTodos: state.completedTodos,
-    isFiltering: state.isFiltering
+		completedTodos: state.completedTodos,
+		isFiltering: state.isFiltering
 	};
 };
 
