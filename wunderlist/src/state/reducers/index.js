@@ -20,8 +20,7 @@ import {
 	FILTER_ALL,
 	SEARCH_START,
 	SEARCH_END,
-	SEARCH,
-	SCHEDULE_TODO,
+	SEARCH
 } from './../actions/';
 import moment from 'moment';
 
@@ -31,7 +30,7 @@ const initialState = {
 	activeTodos: [],
 	deletedTodos: [],
 	completedTodos: [],
-	scheduledTodos: [],
+	recurringTodos: [],
 	isFetching: false,
 	isUpdating: false,
 	isAuthenticating: false,
@@ -91,6 +90,9 @@ export const rootReducer = (state = initialState, action) => {
 					todo =>
 						JSON.parse(todo.description).length > 2 &&
 						JSON.parse(todo.description).includes('TASK_DELETED')
+				),
+				recurringTodos: action.payload.filter(
+					todo => typeof JSON.parse(todo.description)[2] === 'object'
 				)
 			};
 
@@ -232,12 +234,6 @@ export const rootReducer = (state = initialState, action) => {
 							.toLowerCase()
 							.includes(action.payload)
 				)
-			};
-
-		case SCHEDULE_TODO:
-			return {
-				...state,
-				scheduledTodos: [...state.scheduledTodos, action.payload]
 			};
 
 		default:

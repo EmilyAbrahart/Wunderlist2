@@ -10,7 +10,7 @@ import {
 	color_subtle
 } from './../../styles/reusables';
 import moment from 'moment';
-import { addTodo, scheduleTodo } from './../../state/actions';
+import { addTodo } from './../../state/actions';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -183,5 +183,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addTodo, scheduleTodo }
+	{ addTodo }
 )(FormikAddTodoForm);

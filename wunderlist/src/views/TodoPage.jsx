@@ -40,11 +40,25 @@ class TodoPage extends React.Component {
 		}
 	};
 
-	recurringTaskScheduler = () => {};
+	recurringTaskScheduler = () => {
+		console.log('Checking recurring tasks...');
+		for (const task of this.props.recurringTodos) {
+			const taskCreated = JSON.parse(task.description)[2].created;
+			const recurringInterval = parseInt(
+				JSON.parse(task.description)[2].interval,
+				10
+			);
+
+			if (moment().isAfter(moment(taskCreated).add(recurringInterval, 'd'))) {
+				this.props.addTodo(task);
+			}
+		}
+	};
 
 	componentDidMount() {
 		this.props.fetchTodos();
 		setInterval(this.deleteTaskScheduler, 120000);
+		setInterval(this.recurringTaskScheduler, 120000);
 	}
 
 	render() {
@@ -68,7 +82,7 @@ class TodoPage extends React.Component {
 const mapStateToProps = state => {
 	return {
 		todos: state.todos,
-		scheduledTodos: state.scheduledTodos,
+		recurringTodos: state.recurringTodos,
 		deletedTodos: state.deletedTodos
 	};
 };

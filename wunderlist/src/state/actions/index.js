@@ -206,12 +206,3 @@ export const searchEnd = () => dispatch => {
 export const search = query => dispatch => {
 	dispatch({ type: SEARCH, payload: query });
 };
-
-// Scheduling
-// Recurring todos
-export const SCHEDULE_TODO = 'SCHEDULE_TODO';
-
-export const scheduleTodo = todoInfo => dispatch => {
-	dispatch({ type: SCHEDULE_TODO, payload: todoInfo });
-};
-
