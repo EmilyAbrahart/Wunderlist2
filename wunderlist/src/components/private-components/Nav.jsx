@@ -1,22 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { FlexFunc, color_negative } from '../../styles';
+import { FlexFunc, color_negative, color_light, shadow } from '../../styles';
 
 const NavContainer = styled.div`
 	${FlexFunc('column', 'center', 'center')};
-	position: absolute;
-	left: 1rem;
-	top: 7rem;
-
 	a {
 		text-decoration: none;
-		color: black;
-		border: 1px solid black;
+		color: ${color_light};
+		border: 1px solid ${color_light};
 		border-radius: 1rem;
-		width: 10rem;
+		width: 14rem;
 		font-weight: bold;
 		margin-bottom: 1rem;
+		padding: 0.5rem;
+		box-shadow: ${shadow};
 
 		&.activeNavItem {
 			background: ${color_negative};

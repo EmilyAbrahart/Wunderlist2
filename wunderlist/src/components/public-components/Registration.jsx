@@ -8,7 +8,9 @@ import {
 	FlexFunc,
 	Input,
 	header_font,
-	color_primary, tablet, mobile
+	color_primary,
+	tablet,
+	mobile
 } from '../../styles';
 
 const LoginContainer = styled.div`
@@ -18,13 +20,13 @@ const LoginContainer = styled.div`
 	height: 400px;
 	border-radius: 2rem;
 	box-shadow: ${shadow};
-  color: ${color_light};
-  @media ${tablet} {
-     margin-top: 2rem;
-   }
-   @media ${mobile} {
-     width: 90%;
-   }
+	color: ${color_light};
+	@media ${tablet} {
+		margin-top: 2rem;
+	}
+	@media ${mobile} {
+		width: 90%;
+	}
 
 	form {
 		width: 100%;

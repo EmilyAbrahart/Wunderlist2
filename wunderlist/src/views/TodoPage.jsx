@@ -10,25 +10,40 @@ import FilteredTodos from '../components/private-components/FilteredTodos';
 import { connect } from 'react-redux';
 import { fetchTodos, deleteTodo } from '../state/actions';
 import styled from 'styled-components';
-import { FlexFunc } from '../styles';
+import { FlexFunc, color_primary, color_light, title_font } from '../styles';
 import moment from 'moment';
 
 const TodoPageDiv = styled.div`
-	${FlexFunc('column', 'center', 'center')}
+	${FlexFunc('row', 'flex-start', 'center')};
 	margin: 0 auto;
 	width: 100%;
 `;
 
-const PageHeader = styled.h1`
-	position: absolute;
-	top: 0rem;
-	left: 1rem;
+const PageHeader = styled.div`
+	${FlexFunc('column', 'center', 'center')};
+	width: 20%;
+	height: 100vh;
+	background: ${color_primary};
+`;
+
+const PageHeading = styled.h1`
+	padding: 2rem;
+	color: ${color_light};
+	font-family: ${title_font};
+	font-size: 3rem;
 `;
 
 const TodoSectionContainer = styled.div`
 	${FlexFunc('row', 'space-between', 'center')};
 	width: 100%;
 `;
+
+const TodoContentContainer =styled.div`
+	${FlexFunc('column', 'flex-start', 'center')};
+	width: 100%;
+	height: 100vh;
+	overflow-y: scroll;
+`
 
 class TodoPage extends React.Component {
 	deleteTaskScheduler = () => {
@@ -64,16 +79,21 @@ class TodoPage extends React.Component {
 	render() {
 		return (
 			<TodoPageDiv>
-				<PageHeader>Wunderlist</PageHeader>
-				<NavBar />
-				<SearchBar />
-				<TodoHeader />
-				<TodoSectionContainer>
-					<FilteredTodos />
-					<PrivateRoute path="/completed" component={CompletedTodos} />
-					<PrivateRoute path="/deleted" component={DeletedTodos} />
-					<PrivateRoute exact path="/" component={ActiveTodos} />
-				</TodoSectionContainer>
+				<PageHeader>
+					<PageHeading>Wunderlist</PageHeading>
+					<NavBar />
+				</PageHeader>
+
+				<TodoContentContainer>
+					<SearchBar />
+					<TodoHeader />
+					<TodoSectionContainer>
+						<FilteredTodos />
+						<PrivateRoute path="/completed" component={CompletedTodos} />
+						<PrivateRoute path="/deleted" component={DeletedTodos} />
+						<PrivateRoute exact path="/" component={ActiveTodos} />{' '}
+					</TodoSectionContainer>
+				</TodoContentContainer>
 			</TodoPageDiv>
 		);
 	}

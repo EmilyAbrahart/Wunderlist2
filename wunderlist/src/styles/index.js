@@ -9,7 +9,7 @@ export const color_neutral = "#ffed8d";
 export const color_negative = "#eb5372";
 export const color_subtle = "#d3d3d3";
 export const color_transparent = "rgba(0,0,0,0)";
-export const shadow = "0px 4px 4px rgba(0, 0, 0, 0.7)";
+export const shadow = "0px 4px 4px rgba(0, 0, 0, 0.3)";
 
 // Fonts
 export const title_font = "'Philosopher', sans-serif";
