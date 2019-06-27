@@ -10,6 +10,8 @@ import {
 	UPDATE_TODO_SUCCESS,
 	UPDATE_TODO_FAILURE,
 	UPDATE_TODO_START,
+	UPDATE_DELETED_STATUS,
+	UPDATE_COMPLETED_STATUS,
 	LOGIN_START,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
@@ -29,6 +31,7 @@ const initialState = {
 	activeTodos: [],
 	deletedTodos: [],
 	completedTodos: [],
+	scheduledTodos: [],
 	isFetching: false,
 	isUpdating: false,
 	isAuthenticating: false,
@@ -124,7 +127,7 @@ export const rootReducer = (state = initialState, action) => {
 		case ADD_NEW_TODO_SUCCESS:
 			return {
 				...state,
-				todos: [...state.todos, action.payload],
+				activeTodos: [...state.activeTodos, action.payload],
 				isUpdating: false,
 				isFetching: false
 			};
@@ -146,7 +149,7 @@ export const rootReducer = (state = initialState, action) => {
 		case UPDATE_TODO_SUCCESS:
 			return {
 				...state,
-				todos: [...state.todos, action.payload],
+				activeTodos: [...state.activeTodos, action.payload],
 				isUpdating: false,
 				isFetching: false
 			};
@@ -155,6 +158,28 @@ export const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				error: action.payload,
+				isUpdating: false,
+				isFetching: false
+			};
+
+		case UPDATE_DELETED_STATUS:
+			return {
+				...state,
+				activeTodos: state.activeTodos.filter(
+					todo => todo.id !== action.payload.id
+				),
+				deletedTodos: [...state.deletedTodos, action.payload],
+				isUpdating: false,
+				isFetching: false
+			};
+
+		case UPDATE_COMPLETED_STATUS:
+			return {
+				...state,
+				activeTodos: state.activeTodos.filter(
+					todo => todo.id !== action.payload.id
+				),
+				completedTodos: [...state.completedTodos, action.payload],
 				isUpdating: false,
 				isFetching: false
 			};
@@ -170,7 +195,7 @@ export const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFiltering: action.payload[0],
-				filteredTodos: state.todos.filter(todo =>
+				filteredTodos: state.activeTodos.filter(todo =>
 					moment(todo.due_date).isSame(action.payload[1], action.payload[0])
 				)
 			};
@@ -180,7 +205,7 @@ export const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFiltering: action.payload.toLowerCase(),
-				filteredTodos: state.todos.filter(
+				filteredTodos: state.activeTodos.filter(
 					todo => TodoCatergory(todo) === action.payload
 				)
 			};

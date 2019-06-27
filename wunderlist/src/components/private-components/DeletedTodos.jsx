@@ -25,7 +25,8 @@ const DeletedTodos = props => {
 
 const mapStateToProps = state => {
 	return {
-		deletedTodos: state.deletedTodos
+		deletedTodos: state.deletedTodos,
+		isFiltering: state.isFiltering
 	};
 };
 

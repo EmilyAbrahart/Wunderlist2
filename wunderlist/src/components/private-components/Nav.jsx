@@ -12,7 +12,7 @@ const NavContainer = styled.div`
 	a {
 		text-decoration: none;
 		color: black;
-		border: 2px solid black;
+		border: 1px solid black;
 		border-radius: 1rem;
 		width: 10rem;
 		font-weight: bold;

@@ -18,7 +18,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import UpdateTodoForm from './UpdateTodo';
 import { connect } from 'react-redux';
-import { updateTodo, filterAll } from './../../state/actions';
+import {
+	updateTodo,
+	filterAll,
+	updateDeleted,
+	updateCompleted
+} from './../../state/actions';
 
 const TodoDiv = styled.div`
 	${FlexFunc('row', 'flex-start', 'flex-start')};
@@ -107,7 +112,7 @@ class Todo extends React.Component {
 			priority: this.props.priority,
 			due_date: moment()
 		};
-		this.props.updateTodo(this.props.id, archivedObj);
+		this.props.updateDeleted(this.props.id, archivedObj);
 	};
 
 	completeTodo = () => {
@@ -120,16 +125,13 @@ class Todo extends React.Component {
 			priority: this.props.priority,
 			due_date: this.props.due_date
 		};
-		this.props.updateTodo(this.props.id, completedObj);
+		this.props.updateCompleted(this.props.id, completedObj);
 	};
 
 	render() {
 		const descArray = JSON.parse(this.props.description);
 		return (
-			<TodoDiv
-				isUpdating={this.state.isUpdating}
-				onClick={this.toggleExpansion}
-			>
+			<TodoDiv isUpdating={this.state.isUpdating}>
 				<ButtonContainer>
 					<TodoButton onClick={() => this.completeTodo()}>
 						<FontAwesomeIcon icon={faCheck} />
@@ -157,6 +159,7 @@ class Todo extends React.Component {
 						<ItemDiv
 							isExpanded={this.state.isExpanded}
 							isUpdating={this.state.isUpdating}
+							onClick={this.toggleExpansion}
 						>
 							{this.props.item}
 							<DescriptionSpan>{descArray[0]}</DescriptionSpan>
@@ -183,5 +186,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ updateTodo, filterAll }
+	{ updateTodo, filterAll, updateDeleted, updateCompleted }
 )(Todo);

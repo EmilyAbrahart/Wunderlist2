@@ -70,6 +70,9 @@ const AddTodoForm = props => {
 				<FormButtonContainer>
 					<FormButton type="submit">Add</FormButton>
 					<FormButton type="reset">Clear</FormButton>
+						<div>
+					<Field type="checkbox" name="recurring" checked={values.recurring}/>
+				</div>
 				</FormButtonContainer>
 				<FormPriorityContainer>
 					<Field component="select" name="priority" value={values.priority}>
@@ -96,6 +99,7 @@ const AddTodoForm = props => {
 				<FormDateContainer>
 					<Field type="date" name="due_date" value={values.due_date} />
 				</FormDateContainer>
+			
 			</Form>
 		</AddFormDiv>
 	);
@@ -126,7 +130,6 @@ const FormikAddTodoForm = withFormik({
 			priority: values.priority,
 			due_date: values.due_date
 		};
-		console.log(todoObj);
 		props.addTodo(todoObj);
 		resetForm();
 	}

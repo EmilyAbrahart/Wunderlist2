@@ -115,6 +115,8 @@ export const UPDATE = 'UPDATE';
 export const UPDATE_TODO_START = 'UPDATE_TODO_START';
 export const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
 export const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
+export const UPDATE_DELETED_STATUS = 'UPDATE_DELETED_STATUS';
+export const UPDATE_COMPLETED_STATUS = 'UPDATE_COMPLETED_STATUS';
 
 export const updateTodo = (id, todo) => dispatch => {
 	dispatch({ type: UPDATE_TODO_START });
@@ -124,6 +126,44 @@ export const updateTodo = (id, todo) => dispatch => {
 			axiosWithAuth()
 				.get(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
 				.then(res => dispatch({ type: UPDATE_TODO_SUCCESS, payload: res.data }))
+		)
+		.catch(() =>
+			dispatch({
+				type: UPDATE_TODO_FAILURE,
+				payload: 'Unable to update task. Please try again.'
+			})
+		);
+};
+
+export const updateDeleted = (id, todo) => dispatch => {
+	dispatch({ type: UPDATE_TODO_START });
+	axiosWithAuth()
+		.put(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`, todo)
+		.then(res =>
+			axiosWithAuth()
+				.get(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
+				.then(res =>
+					dispatch({ type: UPDATE_DELETED_STATUS, payload: res.data })
+				)
+		)
+		.catch(() =>
+			dispatch({
+				type: UPDATE_TODO_FAILURE,
+				payload: 'Unable to update task. Please try again.'
+			})
+		);
+};
+
+export const updateCompleted = (id, todo) => dispatch => {
+	dispatch({ type: UPDATE_TODO_START });
+	axiosWithAuth()
+		.put(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`, todo)
+		.then(res =>
+			axiosWithAuth()
+				.get(`https://backend-wunderlist.herokuapp.com/api/todos/${id}`)
+				.then(res => {
+					dispatch({ type: UPDATE_COMPLETED_STATUS, payload: res.data });
+				})
 		)
 		.catch(() =>
 			dispatch({
