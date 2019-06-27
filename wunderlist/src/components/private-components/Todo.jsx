@@ -17,6 +17,8 @@ import {
 	faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import UpdateTodoForm from './UpdateTodo';
+import { connect } from 'react-redux';
+import { updateTodo, filterAll } from './../../state/actions';
 
 const TodoDiv = styled.div`
 	${FlexFunc('row', 'flex-start', 'flex-start')};
@@ -46,7 +48,7 @@ const ButtonContainer = styled.div`
 
 const TodoButton = styled.button`
 	${Button(color_light, color_subtle)};
-	border: none;
+	border-color: ${color_light};
 `;
 
 const ItemDiv = styled.div`
@@ -82,7 +84,6 @@ const PriorityContainer = styled.div`
 
 class Todo extends React.Component {
 	state = {
-		isComplete: false,
 		isExpanded: false,
 		isUpdating: false
 	};
@@ -91,13 +92,35 @@ class Todo extends React.Component {
 		this.setState({ isExpanded: !this.state.isExpanded });
 	};
 
-	completeTask = () => {
-		this.setState({ isComplete: true });
-	};
-
 	toggleUpdate = () => {
 		this.props.filterAll();
 		this.setState({ isUpdating: !this.state.isUpdating });
+	};
+
+	archiveTodo = () => {
+		const archivedObj = {
+			item: this.props.item,
+			description: JSON.stringify([
+				...JSON.parse(this.props.description),
+				'TASK_DELETED'
+			]),
+			priority: this.props.priority,
+			due_date: moment()
+		};
+		this.props.updateTodo(this.props.id, archivedObj);
+	};
+
+	completeTodo = () => {
+		const completedObj = {
+			item: this.props.item,
+			description: JSON.stringify([
+				...JSON.parse(this.props.description),
+				'TASK_COMPLETED'
+			]),
+			priority: this.props.priority,
+			due_date: this.props.due_date
+		};
+		this.props.updateTodo(this.props.id, completedObj);
 	};
 
 	render() {
@@ -108,13 +131,13 @@ class Todo extends React.Component {
 				onClick={this.toggleExpansion}
 			>
 				<ButtonContainer>
-					<TodoButton onClick={() => this.completeTask()}>
+					<TodoButton onClick={() => this.completeTodo()}>
 						<FontAwesomeIcon icon={faCheck} />
 					</TodoButton>
 					<TodoButton onClick={() => this.toggleUpdate()}>
 						<FontAwesomeIcon icon={faPencilAlt} />
 					</TodoButton>
-					<TodoButton onClick={() => this.props.deleteTodo(this.props.id)}>
+					<TodoButton onClick={() => this.archiveTodo()}>
 						<FontAwesomeIcon icon={faTrashAlt} />
 					</TodoButton>
 				</ButtonContainer>
@@ -151,4 +174,14 @@ class Todo extends React.Component {
 	}
 }
 
-export default Todo;
+const mapStateToProps = state => {
+	return {
+		catergories: state.catergories,
+		priorities: state.priorities
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	{ updateTodo, filterAll }
+)(Todo);
