@@ -1,49 +1,92 @@
-import React from "react";
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import styled from 'styled-components';
+import {
+	color_dark,
+	color_light,
+	shadow,
+	FlexFunc,
+	Input,
+	Button,
+	header_font,
+	color_primary, tablet, mobile
+} from '../../styles';
 
-const RegistrationForm = ({ errors, touched }) => {
-  return (
-    <div>
-      <h3>Welcome</h3>
-      <Form>
-        <div>
-          {touched.username && errors.username && <p>{errors.username}</p>}
-          <Field type="text" name="username" placeholder="Username" />
-        </div>
-        <div>
-          {touched.password && errors.password && <p>{errors.password}</p>}
-          <Field type="password" name="password" placeholder="Password" />
-        </div>
+const LoginContainer = styled.div`
+	${FlexFunc('column', 'center', 'center')};
+	background: ${color_primary};
+	width: 550px;
+	height: 400px;
+	border-radius: 2rem;
+	box-shadow: ${shadow};
+  color: ${color_light};
+  @media ${tablet} {
+     margin-top: 2rem;
+   }
+   @media ${mobile} {
+     width: 90%;
+   }
 
-        <button type="submit">Join</button>
-        <button type="reset">Clear</button>
-      </Form>
-    </div>
-  );
+	form {
+		width: 100%;
+		${FlexFunc('column', 'space-evenly', 'center')};
+
+		input {
+			${Input('60%')};
+			margin-bottom: 2rem;
+			height: 2rem;
+		}
+	}
+`;
+
+const FormButton = styled.div`
+	${Button(color_light, color_dark)};
+	border: 2px solid ${color_dark};
+	width: 50%;
+`;
+
+const LoginFormHeader = styled.h3`
+	font-size: 2rem;
+	font-family: ${header_font};
+`;
+
+const RegistrationForm = () => {
+	return (
+		<LoginContainer>
+			<LoginFormHeader>Join Us</LoginFormHeader>
+			<Form>
+				<Field type="text" name="username" placeholder="Username" />
+
+				<Field type="password" name="password" placeholder="Password" />
+
+				<FormButton type="submit">Sign Up</FormButton>
+			</Form>
+		</LoginContainer>
+	);
 };
 
 const registrationFormValidationSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(5, "Username must be 5 characters or longer.")
-    .required("Username is required."),
-  password: Yup.string()
-    .min(6, "Password must be 6 characters or longer.")
-    .required("Password is required.")
+	username: Yup.string()
+		.min(5, 'Username must be 5 characters or longer.')
+		.required('Username is required.'),
+	password: Yup.string()
+		.min(6, 'Password must be 6 characters or longer.')
+		.required('Password is required.')
 });
 
 const FormikRegistrationForm = withFormik({
-  mapPropsToValues() {
-    return {
-      username: "",
-      password: ""
-    };
-  },
-  validationSchema: registrationFormValidationSchema,
-  handleSubmit(values, { props, resetForm }) {
-    props.registerUser(values);
-    resetForm();
-  }
+	mapPropsToValues() {
+		return {
+			username: '',
+			password: ''
+		};
+	},
+	validationSchema: registrationFormValidationSchema,
+	handleSubmit(values, { props, resetForm }) {
+		props.registerUser(values);
+		resetForm();
+	}
 })(RegistrationForm);
 
 export default FormikRegistrationForm;

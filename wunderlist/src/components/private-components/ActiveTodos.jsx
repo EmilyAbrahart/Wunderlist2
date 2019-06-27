@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateTodo } from '../../state/actions';
 import Todo from './Todo';
 import styled from 'styled-components';
-import { FlexFunc } from '../../styles/reusables';
+import { FlexFunc } from '../../styles';
 
 const TodoListDiv = styled.div`
 	${FlexFunc('column', 'center', 'flex-start')};

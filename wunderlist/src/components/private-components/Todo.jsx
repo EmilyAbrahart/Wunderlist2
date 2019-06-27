@@ -8,7 +8,7 @@ import {
 	color_positive,
 	color_subtle,
 	Button
-} from './../../styles/reusables';
+} from '../../styles';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

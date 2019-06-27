@@ -10,7 +10,7 @@ import FilteredTodos from '../components/private-components/FilteredTodos';
 import { connect } from 'react-redux';
 import { fetchTodos, deleteTodo } from '../state/actions';
 import styled from 'styled-components';
-import { FlexFunc } from '../styles/reusables';
+import { FlexFunc } from '../styles';
 import moment from 'moment';
 
 const TodoPageDiv = styled.div`

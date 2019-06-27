@@ -8,7 +8,7 @@ import {
 	Button,
 	color_light,
 	color_subtle
-} from './../../styles/reusables';
+} from '../../styles';
 import moment from 'moment';
 import { addTodo } from './../../state/actions';
 import { connect } from 'react-redux';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexFunc, Button } from './../../styles/reusables';
+import { FlexFunc, Button } from '../../styles';
 import AddTodo from './AddToDo';
 import { connect } from 'react-redux';
 import {toggleForm} from './../../state/actions';

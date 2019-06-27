@@ -9,11 +9,16 @@ export const color_neutral = "#ffed8d";
 export const color_negative = "#eb5372";
 export const color_subtle = "#d3d3d3";
 export const color_transparent = "rgba(0,0,0,0)";
-export const shadow = "0px 4px 4px rgba(0, 0, 0, 0.25)";
+export const shadow = "0px 4px 4px rgba(0, 0, 0, 0.7)";
 
 // Fonts
-export const header_font = "'Dancing Script', cursive";
-export const text_font = "'Hind Siliguri', sans-serif";
+export const title_font = "'Philosopher', sans-serif";
+export const header_font = "'Roboto', sans-serif;";
+export const text_font = "";
+
+//Media Queries
+export const mobile = "(max-device-width : 480px)";
+export const tablet = "(max-device-width : 1024px)";
 
 // FUNCTIONS
 // Flexbox
@@ -45,7 +50,7 @@ export const Button = (backgroundColor, color) => {
   &:hover {
     color: ${backgroundColor};
     background-color: ${color};
-    border: 1px solid ${backgroundColor};
+    border-color:${backgroundColor};
   }
   `;
 };
@@ -59,7 +64,7 @@ export const Input = (width) => {
     text-align: center;
     font-size: 0.8rem;
     height: 1.5rem;
-    border: 1px solid ${color_subtle};
+    border: none;
 
      &:focus {
        box-shadow: ${shadow};

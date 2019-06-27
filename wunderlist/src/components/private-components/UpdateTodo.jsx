@@ -2,7 +2,7 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { FlexFunc, Input, Button } from './../../styles/reusables';
+import { FlexFunc, Input, Button } from '../../styles';
 import moment from 'moment';
 
 const UpdateFormDiv = styled.div`

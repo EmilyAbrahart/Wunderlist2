@@ -7,7 +7,7 @@ import {
 	color_subtle,
 	color_light,
 	color_negative
-} from './../../styles/reusables';
+} from '../../styles';
 import { connect } from 'react-redux';
 import {
 	filterAll,

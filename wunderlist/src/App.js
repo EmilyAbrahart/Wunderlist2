@@ -18,7 +18,6 @@ function App() {
 					return <Redirect exact to="/" />;
 				}}
 			/>
-
 			<PrivateRoute path="/" component={TodoPage} />
 		</div>
 	);
