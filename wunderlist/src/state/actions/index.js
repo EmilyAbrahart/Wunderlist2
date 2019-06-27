@@ -38,6 +38,7 @@ export const loginUser = credentials => dispatch => {
 		.then(res => {
 			dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
 			localStorage.setItem('token', res.data.token);
+			window.location.reload();
 		})
 		.catch(() =>
 			dispatch({
