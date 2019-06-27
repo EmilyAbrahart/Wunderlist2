@@ -22,7 +22,8 @@ import {
 	updateTodo,
 	filterAll,
 	updateDeleted,
-	updateCompleted
+	updateCompleted,
+	scheduleDelete
 } from './../../state/actions';
 
 const TodoDiv = styled.div`
@@ -103,6 +104,11 @@ class Todo extends React.Component {
 	};
 
 	archiveTodo = () => {
+		const deleteObj = {
+			id: this.props.id,
+			deleted: moment()
+		};
+
 		const archivedObj = {
 			item: this.props.item,
 			description: JSON.stringify([
@@ -112,6 +118,7 @@ class Todo extends React.Component {
 			priority: this.props.priority,
 			due_date: moment()
 		};
+		this.props.scheduleDelete(deleteObj);
 		this.props.updateDeleted(this.props.id, archivedObj);
 	};
 
@@ -180,11 +187,12 @@ class Todo extends React.Component {
 const mapStateToProps = state => {
 	return {
 		catergories: state.catergories,
-		priorities: state.priorities
+		priorities: state.priorities,
+		scheduledForDelete: state.scheduledForDelete
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ updateTodo, filterAll, updateDeleted, updateCompleted }
+	{ updateTodo, filterAll, updateDeleted, updateCompleted, scheduleDelete }
 )(Todo);

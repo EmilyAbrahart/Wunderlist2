@@ -21,7 +21,8 @@ import {
 	SEARCH_START,
 	SEARCH_END,
 	SEARCH,
-	SCHEDULE_TODO
+	SCHEDULE_TODO,
+	SCHEDULE_DELETE
 } from './../actions/';
 import moment from 'moment';
 
@@ -32,6 +33,7 @@ const initialState = {
 	deletedTodos: [],
 	completedTodos: [],
 	scheduledTodos: [],
+	scheduledForDelete: [],
 	isFetching: false,
 	isUpdating: false,
 	isAuthenticating: false,
@@ -239,7 +241,13 @@ export const rootReducer = (state = initialState, action) => {
 				...state,
 				scheduledTodos: [...state.scheduledTodos, action.payload]
 			};
-			
+
+		case SCHEDULE_DELETE:
+			return {
+				...state,
+				scheduledForDelete: [...state.scheduledForDelete, action.payload]
+			};
+
 		default:
 			return state;
 	}
