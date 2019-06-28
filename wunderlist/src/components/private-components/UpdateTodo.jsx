@@ -30,7 +30,7 @@ border-radius: 1rem;
 		${FlexFunc('row', 'flex-start', 'flex-start')}
 
 		@media ${tablet} {
-	${FlexFunc('column', 'space-evenly', 'center')};
+	${FlexFunc('column', 'center', 'center')};
 	position: relative;
 	height: 100%;
 }
@@ -68,7 +68,10 @@ const FormPriorityContainer = styled.div`
 	}
 
 	@media ${tablet} {
-		width: 100%;
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+
 		select {
 			${Input('2rem')};
 		}
@@ -85,9 +88,10 @@ const FormInfoContainer = styled.div`
 
 	@media ${tablet} {
 		width: 100%;
+		height: 50%;
 		input {
 			${Input('70%')};
-			height: 1.5rem;
+			height: 2rem;
 			margin: 1rem 0;
 		}
 	}
@@ -98,12 +102,24 @@ const FormCatergoryContainer = styled.div`
 	select {
 		${Input('95%')}
 	}
+	@media ${tablet} {
+		position: absolute;
+		bottom: 1rem;
+		left: 1rem;
+		width: 40%;
+	}
 `;
 
 const FormDateContainer = styled.div`
 	width: 15%;
 	input {
 		${Input('95%')}
+	}
+	@media ${tablet} {
+		position: absolute;
+		bottom: 1rem;
+		right: 1rem;
+		width: 40%;
 	}
 `;
 
