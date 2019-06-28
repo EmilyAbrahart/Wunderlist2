@@ -7,7 +7,8 @@ import {
 	Input,
 	Button,
 	color_light,
-	color_subtle
+	color_primary,
+	tablet
 } from '../../styles';
 import moment from 'moment';
 import { addTodo } from './../../state/actions';
@@ -19,12 +20,20 @@ const AddFormDiv = styled.div`
 	width: 100%;
 	${FlexFunc('column', 'center', 'flex-start')};
 	display: ${props => (props.isAdding ? 'flex' : 'none')};
-
 	margin-bottom: 1rem;
+
+	@media ${tablet} {
+		${FlexFunc('row', 'center', 'center')};
+		display: ${props => (props.isAdding ? 'flex' : 'none')};
+	}
 
 	form {
 		width: 100%;
-		${FlexFunc('row', 'flex-start', 'flex-start')}
+		${FlexFunc('row', 'flex-start', 'flex-start')};
+		flex-wrap: wrap;
+		@media ${tablet} {
+			${FlexFunc('row', 'center', 'center')};
+		}
 
 		div {
 			${FlexFunc('row', 'center', 'center')};
@@ -38,14 +47,15 @@ const FormButtonContainer = styled.div`
 `;
 
 const FormButton = styled.button`
-	${Button(color_light, color_subtle)};
+	${Button(color_light, color_primary)};
 	border-color: ${color_light};
 `;
 
 const FormPriorityContainer = styled.div`
 	width: 5%;
 	select {
-		${Input('95%')}
+		${Input('95%')};
+		border: 1px solid ${color_primary};
 	}
 `;
 
@@ -54,6 +64,7 @@ const FormInfoContainer = styled.div`
 
 	input {
 		${Input('45%')};
+		border: 1px solid ${color_primary};
 		margin: 0 0.5rem;
 	}
 `;
@@ -61,14 +72,16 @@ const FormInfoContainer = styled.div`
 const FormCatergoryContainer = styled.div`
 	width: 15%;
 	select {
-		${Input('95%')}
+		${Input('95%')};
+		border: 1px solid ${color_primary};
 	}
 `;
 
 const FormDateContainer = styled.div`
 	width: 15%;
 	input {
-		${Input('95%')}
+		${Input('95%')};
+		border: 1px solid ${color_primary};
 	}
 `;
 
@@ -76,6 +89,7 @@ const RecurringContainer = styled.div`
 	width: 1.5rem;
 	input {
 		${Input('1.5rem')};
+		border: 1px solid ${color_primary};
 	}
 `;
 

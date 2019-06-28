@@ -10,7 +10,14 @@ import FilteredTodos from '../components/private-components/FilteredTodos';
 import { connect } from 'react-redux';
 import { fetchTodos, deleteTodo } from '../state/actions';
 import styled from 'styled-components';
-import { FlexFunc, color_light, title_font, color_primary, tablet } from '../styles';
+import {
+	FlexFunc,
+	color_light,
+	title_font,
+	color_primary,
+	tablet,
+	Button
+} from '../styles';
 import moment from 'moment';
 
 const TodoPageDiv = styled.div`
@@ -50,14 +57,26 @@ const TodoSectionContainer = styled.div`
 	width: 100%;
 `;
 
-const TodoContentContainer =styled.div`
+const TodoContentContainer = styled.div`
 	${FlexFunc('column', 'flex-start', 'center')};
 	width: 100%;
 	height: 100vh;
 	overflow-y: scroll;
-`
+`;
+
+const LogoutButton = styled.button`
+	${Button(color_light, color_primary)};
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+`;
 
 class TodoPage extends React.Component {
+	logout = () => {
+		localStorage.removeItem('token');
+		window.location.reload();
+	};
+
 	deleteTaskScheduler = () => {
 		console.log('Checking archived tasks...');
 		for (const task of this.props.deletedTodos) {
@@ -91,6 +110,7 @@ class TodoPage extends React.Component {
 	render() {
 		return (
 			<TodoPageDiv>
+				<LogoutButton onClick={() => this.logout()}>Logout</LogoutButton>
 				<PageHeader>
 					<PageHeading>Wunderlist</PageHeading>
 					<NavBar />
