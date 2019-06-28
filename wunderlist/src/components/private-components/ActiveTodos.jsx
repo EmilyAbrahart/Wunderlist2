@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateTodo } from '../../state/actions';
 import Todo from './Todo';
 import styled from 'styled-components';
-import { FlexFunc } from '../../styles';
+import { FlexFunc, tablet } from '../../styles';
 
 const TodoListDiv = styled.div`
 	${FlexFunc('column', 'center', 'flex-start')};
@@ -12,6 +12,11 @@ const TodoListDiv = styled.div`
 	max-width: 1024px;
 	margin: 0 auto;
 	box-sizing: border-box;
+
+	@media ${tablet}{
+		${FlexFunc('row', 'center', 'center')};
+		flex-wrap: wrap;
+	}
 `;
 
 const ActiveTodos = props => {

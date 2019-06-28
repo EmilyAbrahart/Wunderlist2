@@ -2,7 +2,14 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { FlexFunc, Input, Button } from '../../styles';
+import {
+	FlexFunc,
+	Input,
+	Button,
+	tablet,
+	color_light,
+	color_primary
+} from '../../styles';
 import moment from 'moment';
 
 const UpdateFormDiv = styled.div`
@@ -10,15 +17,31 @@ const UpdateFormDiv = styled.div`
 	${FlexFunc('column', 'center', 'flex-start')};
 	display: ${props => (props.isUpdating ? 'flex' : 'none')};
 	position: absolute;
-	background: white;
+	background: ${color_light};
+
+@media ${tablet} {
+background: ${color_primary};
+height: 100%;
+border-radius: 1rem;
+}
 
 	form {
 		width: 100%;
 		${FlexFunc('row', 'flex-start', 'flex-start')}
 
+		@media ${tablet} {
+	${FlexFunc('column', 'space-evenly', 'center')};
+	position: relative;
+	height: 100%;
+}
+
 		div {
 			${FlexFunc('row', 'center', 'center')};
 			height: 1.5rem;
+
+			@media ${tablet} {
+	${FlexFunc('column', 'center', 'center')};
+}
 		}
 	}
 `;
@@ -26,6 +49,11 @@ const UpdateFormDiv = styled.div`
 const FormButtonContainer = styled.div`
 	width: 15%;
 	opacity: 0%;
+
+	@media ${tablet} {
+		position: absolute;
+		left: -1.5rem;
+	}
 `;
 
 const FormButton = styled.button`
@@ -34,8 +62,16 @@ const FormButton = styled.button`
 
 const FormPriorityContainer = styled.div`
 	width: 5%;
+
 	select {
 		${Input('95%')}
+	}
+
+	@media ${tablet} {
+		width: 100%;
+		select {
+			${Input('2rem')};
+		}
 	}
 `;
 
@@ -45,6 +81,15 @@ const FormInfoContainer = styled.div`
 	input {
 		${Input('45%')};
 		margin: 0 0.5rem;
+	}
+
+	@media ${tablet} {
+		width: 100%;
+		input {
+			${Input('70%')};
+			height: 1.5rem;
+			margin: 1rem 0;
+		}
 	}
 `;
 

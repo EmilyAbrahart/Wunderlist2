@@ -7,7 +7,9 @@ import {
 	color_neutral,
 	color_positive,
 	color_subtle,
-	Button
+	Button,
+	tablet,
+	color_primary
 } from '../../styles';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,6 +33,18 @@ const TodoDiv = styled.div`
 	width: 100%;
 	text-align: left;
 	position: relative;
+
+	@media ${tablet} {
+		${FlexFunc('column', 'space-evenly', 'center')};
+		width: 400px;
+		height: 200px;
+		text-align: center;
+		position: relative;
+		background: ${color_primary};
+		color: ${color_light};
+		margin: 1rem;
+		border-radius: 1rem;
+	}
 `;
 
 const PriorityDiv = styled.div`
@@ -44,16 +58,36 @@ const PriorityDiv = styled.div`
 			? color_positive
 			: color_light};
 	height: 1.5rem;
+
+	@media ${tablet} {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		border-radius: 1rem 1rem 0 0;
+	}
 `;
 
 const ButtonContainer = styled.div`
 	${FlexFunc('row', 'center', 'center')};
 	width: 15%;
+
+	@media ${tablet} {
+		${FlexFunc('column', 'center', 'center')};
+		position: absolute;
+		left: 0;
+		height: 100%;
+	}
 `;
 
 const TodoButton = styled.button`
 	${Button(color_light, color_subtle)};
 	border-color: ${color_light};
+
+	@media ${tablet} {
+		${Button(color_primary, color_light)};
+		border: none !important;
+		font-size: 1.5rem;
+	}
 `;
 
 const ItemDiv = styled.div`
@@ -64,27 +98,56 @@ const ItemDiv = styled.div`
 	text-overflow: ellipsis;
 	overflow: hidden;
 	padding-bottom: ${props => (props.isExpanded ? '0.5rem' : '0')};
+	@media ${tablet} {
+		width: 100%;
+	}
 `;
 
 const DescriptionSpan = styled.span`
 	padding-left: 1rem;
 	font-weight: normal;
 	font-size: 0.9rem;
+
+	@media ${tablet} {
+		display: none;
+	}
 `;
 
 const CatergoryDiv = styled.div`
 	width: 15%;
 	text-align: center;
+	@media ${tablet} {
+		width: 100%;
+	}
 `;
 
 const DueDateDiv = styled.div`
 	width: 15%;
 	text-align: center;
+	@media ${tablet} {
+		width: 100%;
+	}
 `;
 
 const PriorityContainer = styled.div`
 	width: 5%;
 	${FlexFunc('column', 'center', 'center')}
+	@media ${tablet} {
+		width: 80%;
+		height: 5px;
+	}
+`;
+
+const DescriptionDiv = styled.div`
+	display: none;
+
+	@media ${tablet} {
+		display: block;
+		font-weight: normal;
+		white-space: ${props => (props.isExpanded ? 'normal' : 'nowrap')};
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 `;
 
 class Todo extends React.Component {
@@ -163,6 +226,7 @@ class Todo extends React.Component {
 						>
 							{this.props.item}
 							<DescriptionSpan>{descArray[0]}</DescriptionSpan>
+							<DescriptionDiv>{descArray[0]}</DescriptionDiv>
 						</ItemDiv>
 						<CatergoryDiv>{descArray[1]}</CatergoryDiv>
 						<DueDateDiv>
