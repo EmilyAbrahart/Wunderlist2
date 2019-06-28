@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexFunc, Button } from '../../styles';
+import { FlexFunc, color_subtle } from '../../styles';
 import AddTodo from './AddToDo';
 import { connect } from 'react-redux';
-import {toggleForm} from './../../state/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
 
 const TodoHeaderContainer = styled.div`
-${FlexFunc('column', 'center', 'center')};
-width: 100%;
-max-width: 1024px;
-padding-top: 2rem;
-`
+	${FlexFunc('column', 'center', 'center')};
+	width: 100%;
+	max-width: 1024px;
+	padding-top: 2rem;
+`;
 
 const TitleBar = styled.ul`
 	${FlexFunc('row', 'flex-start', 'baseline')};
@@ -18,6 +19,9 @@ const TitleBar = styled.ul`
 	height: 1.5rem;
 	padding: 0;
 	font-weight: bold;
+	background: ${color_subtle};
+	height: 2rem;
+	font-size: 1rem;
 
 	li {
 		list-style-type: none;
@@ -44,21 +48,15 @@ const BarDateLi = styled.li`
 
 const BarButtonLi = styled.li`
 	width: 15%;
+	text-align: right;
+	padding-right: 3rem;
 `;
 
-const AddTodoButton = styled.button`
-	${Button('white', 'black')}
-`;
-
-const TodoHeader = (props) => {
+const TodoHeader = () => {
 	return (
 		<TodoHeaderContainer>
 			<TitleBar>
-				<BarButtonLi>
-					<AddTodoButton onClick={() => props.toggleForm()}>
-						{props.isAdding ? 'Close' : 'Add Todo'}
-					</AddTodoButton>
-				</BarButtonLi>
+				<BarButtonLi />
 				<BarPriorityLi>!</BarPriorityLi>
 				<BarTodoLi>Todo</BarTodoLi>
 				<BarCatergoryLi>Catergory</BarCatergoryLi>
@@ -70,8 +68,8 @@ const TodoHeader = (props) => {
 };
 
 const mapStateToProps = state => {
-  return {
-    isAdding: state.isAdding
-  }
-}
-export default connect(mapStateToProps,{toggleForm})(TodoHeader);
+	return {
+		isAdding: state.isAdding
+	};
+};
+export default connect(mapStateToProps)(TodoHeader);

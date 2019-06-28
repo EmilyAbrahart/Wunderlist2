@@ -6,7 +6,9 @@ import {
 	Button,
 	color_subtle,
 	color_light,
-	color_negative
+	color_negative,
+	color_primary,
+	color_dark
 } from '../../styles';
 import { connect } from 'react-redux';
 import {
@@ -15,54 +17,64 @@ import {
 	filterDueDate,
 	search,
 	searchStart,
-	searchEnd
+	searchEnd,
+	toggleForm
 } from './../../state/actions';
 
 const SearchBarDiv = styled.div`
 	${FlexFunc('column', 'center', 'center')};
 	width: 70%;
-	padding-top: 2rem;
+	padding: 2rem 0 1rem 0;
+	background: ${color_primary};
+	width: 100%;
+	border-bottom: 1px solid ${color_primary};
 `;
 
 const FilterContainer = styled.div`
 	width: 100%;
+	max-width: 1024px;
 	${FlexFunc('row', 'center', 'center')};
 `;
 
 const SearchBarInput = styled.input`
 	${Input('70%')};
+	border: 1px solid ${color_primary};
+	height: 2rem;
 `;
 
 const SearchBarButton = styled.button`
 	margin-top: 0.5rem;
 	${Button('white', color_subtle)};
+	border: none;
 `;
 
 const FilterAllButton = styled(SearchBarButton)`
-	color: ${props => (props.isFiltering ? color_subtle : color_light)};
-	background: ${props => (props.isFiltering ? color_light : color_negative)};
-	border-color: ${props => (props.isFiltering ? color_subtle : color_negative)};
+	color: ${color_light};
+	background: ${props => (props.isFiltering ? color_primary : color_negative)};
+	margin: 0.5rem 0.25rem;
 	&:hover {
 		background: ${color_negative};
-		border-color: ${color_negative};
 	}
 `;
 
 const FilterButton = styled(SearchBarButton)`
-	color: ${props =>
-		props.isFiltering === props.id.toLowerCase() ? color_light : color_subtle};
+	color: ${color_light};
 	background: ${props =>
 		props.isFiltering === props.id.toLowerCase()
 			? color_negative
-			: color_light};
-	border-color: ${props =>
-		props.isFiltering === props.id.toLowerCase()
-			? color_negative
-			: color_subtle};
+			: color_primary};
+	margin: 0.5rem 0.25rem;
 	&:hover {
 		background: ${color_negative};
-		border-color: ${color_negative};
 	}
+`;
+const AddTodoButton = styled.button`
+	${Button(color_light, color_dark)};
+	background: ${props => (props.isAdding ? color_dark : color_light)};
+	color: ${props => (props.isAdding ? color_light : color_dark )};
+	border: none;
+	margin: 0.5rem 0.25rem;
+	width: 10rem;
 `;
 
 const SearchBar = props => {
@@ -79,6 +91,12 @@ const SearchBar = props => {
 			/>
 
 			<FilterContainer>
+				<AddTodoButton
+					isAdding={props.isAdding}
+					onClick={() => props.toggleForm()}
+				>
+					{props.isAdding ? 'Close' : 'Add Todo'}
+				</AddTodoButton>
 				<div>
 					<FilterAllButton
 						isFiltering={props.isFiltering}
@@ -107,8 +125,7 @@ const SearchBar = props => {
 					>
 						Month
 					</FilterButton>
-				</div>
-				<div>
+
 					{props.catergories.map(catergory => (
 						<FilterButton
 							onClick={() => props.filterCatergory(catergory)}
@@ -128,11 +145,20 @@ const SearchBar = props => {
 const mapStateToProps = state => {
 	return {
 		isFiltering: state.isFiltering,
-		catergories: state.catergories
+		catergories: state.catergories,
+		isAdding: state.isAdding
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ filterAll, filterCatergory, filterDueDate, search, searchStart, searchEnd }
+	{
+		filterAll,
+		filterCatergory,
+		filterDueDate,
+		search,
+		searchStart,
+		searchEnd,
+		toggleForm
+	}
 )(SearchBar);

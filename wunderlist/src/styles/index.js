@@ -3,7 +3,7 @@
 export const color_light = "#ffffff";
 export const color_dark = "#1a2035";
 export const color_primary = "#31364a";
-export const color_secondary = "#89ddfb";
+export const color_secondary = "#219ea4";
 export const color_positive = "#c3e88d";
 export const color_neutral = "#ffed8d";
 export const color_negative = "#eb5372";
