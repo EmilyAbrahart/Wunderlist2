@@ -8,7 +8,7 @@ import {
 	color_light,
 	color_negative,
 	color_primary,
-	color_dark
+	color_dark, mobile
 } from '../../styles';
 import { connect } from 'react-redux';
 import {
@@ -34,6 +34,10 @@ const FilterContainer = styled.div`
 	width: 100%;
 	max-width: 1024px;
 	${FlexFunc('row', 'center', 'center')};
+
+	@media ${mobile} {
+		${FlexFunc('column', 'center', 'center')};
+	}
 `;
 
 const SearchBarInput = styled.input`

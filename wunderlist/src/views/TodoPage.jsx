@@ -10,13 +10,16 @@ import FilteredTodos from '../components/private-components/FilteredTodos';
 import { connect } from 'react-redux';
 import { fetchTodos, deleteTodo } from '../state/actions';
 import styled from 'styled-components';
-import { FlexFunc, color_light, title_font, color_primary } from '../styles';
+import { FlexFunc, color_light, title_font, color_primary, tablet } from '../styles';
 import moment from 'moment';
 
 const TodoPageDiv = styled.div`
 	${FlexFunc('row', 'flex-start', 'center')};
 	margin: 0 auto;
 	width: 100%;
+	@media ${tablet} {
+		${FlexFunc('column', 'center', 'center')}
+	}
 `;
 
 const PageHeader = styled.div`
@@ -24,6 +27,11 @@ const PageHeader = styled.div`
 	width: 20%;
 	height: 100vh;
 	background: ${color_primary};
+
+	@media ${tablet} {
+		width: 100%;
+		height: auto;
+	}
 `;
 
 const PageHeading = styled.h1`
@@ -31,6 +39,10 @@ const PageHeading = styled.h1`
 	color: ${color_light};
 	font-family: ${title_font};
 	font-size: 3rem;
+
+	@media ${tablet} {
+		padding: 0;
+	}
 `;
 
 const TodoSectionContainer = styled.div`

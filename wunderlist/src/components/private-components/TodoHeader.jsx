@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexFunc, color_subtle } from '../../styles';
+import { FlexFunc, color_subtle, tablet, mobile } from '../../styles';
 import AddTodo from './AddToDo';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo } from '@fortawesome/free-solid-svg-icons';
 
 const TodoHeaderContainer = styled.div`
 	${FlexFunc('column', 'center', 'center')};
@@ -22,6 +20,10 @@ const TitleBar = styled.ul`
 	background: ${color_subtle};
 	height: 2rem;
 	font-size: 1rem;
+
+	@media ${tablet} {
+		display: none;
+	}
 
 	li {
 		list-style-type: none;
@@ -48,8 +50,6 @@ const BarDateLi = styled.li`
 
 const BarButtonLi = styled.li`
 	width: 15%;
-	text-align: right;
-	padding-right: 3rem;
 `;
 
 const TodoHeader = () => {
